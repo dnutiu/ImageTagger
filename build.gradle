@@ -51,7 +51,8 @@ dependencies {
 }
 
 test {
-useJUnitPlatform()}
+  useJUnitPlatform()
+}
 
 jlink {
   imageZip = project.file("${buildDir}/distributions/app-${javafx.platform.classifier}.zip")
