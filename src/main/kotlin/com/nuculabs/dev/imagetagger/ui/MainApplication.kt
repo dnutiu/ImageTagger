@@ -8,12 +8,14 @@ import javafx.stage.Stage
 
 class MainApplication : Application() {
     override fun start(stage: Stage) {
-        val imageTagsPrediction = ImageTagsPrediction.getInstance()
+        ImageTagsPrediction.getInstance()
 
-        val fxmlLoader = FXMLLoader(MainApplication::class.java.getResource("hello-view.fxml"))
-        val scene = Scene(fxmlLoader.load(), 320.0, 240.0)
-        stage.title = "Hello!"
+        val fxmlLoader = FXMLLoader(MainApplication::class.java.getResource("main-window-view.fxml"))
+        val scene = Scene(fxmlLoader.load(), 640.0, 760.0)
+        stage.title = "Image Tagger"
         stage.scene = scene
+        stage.minWidth = 640.0
+        stage.minHeight = 760.0
         stage.show()
     }
 }
