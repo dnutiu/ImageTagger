@@ -25,7 +25,7 @@ tasks.withType(JavaCompile) {
 
 application {
   mainModule = 'com.nuculabs.dev.imagetagger.ui'
-  mainClass = 'com.nuculabs.dev.imagetagger.ui.HelloApplication'
+  mainClass = 'com.nuculabs.dev.imagetagger.ui.MainApplication'
 }
 kotlin {
   jvmToolchain( 17 )
@@ -45,7 +45,7 @@ dependencies {
     exclude(group: 'org.openjfx')
   }
   implementation('org.kordamp.ikonli:ikonli-javafx:12.3.1')
-
+  implementation('com.microsoft.onnxruntime:onnxruntime:1.17.1')
   testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
   testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
 }
