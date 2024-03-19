@@ -1,4 +1,4 @@
-module com.nuculabs.dev.imagetagger {
+module com.nuculabs.dev.imagetagger.ui {
     requires javafx.controls;
     requires javafx.fxml;
     requires kotlin.stdlib;
@@ -8,6 +8,6 @@ module com.nuculabs.dev.imagetagger {
     requires net.synedra.validatorfx;
     requires org.kordamp.ikonli.javafx;
 
-    opens com.nuculabs.dev.imagetagger to javafx.fxml;
-    exports com.nuculabs.dev.imagetagger;
+    opens com.nuculabs.dev.imagetagger.ui to javafx.fxml;
+    exports com.nuculabs.dev.imagetagger.ui;
 }

@@ -1,4 +1,4 @@
-package com.nuculabs.dev.imagetagger
+package com.nuculabs.dev.imagetagger.ui
 
 import javafx.application.Application
 import javafx.fxml.FXMLLoader

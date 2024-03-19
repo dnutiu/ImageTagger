@@ -1,4 +1,4 @@
-package com.nuculabs.dev.imagetagger
+package com.nuculabs.dev.imagetagger.ui
 
 import javafx.fxml.FXML
 import javafx.scene.control.Label
