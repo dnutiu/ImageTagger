@@ -6,11 +6,11 @@ import javafx.fxml.FXMLLoader
 import javafx.scene.Scene
 import javafx.stage.Stage
 
-class MainApplication : Application() {
+class MainPage : Application() {
     override fun start(stage: Stage) {
         ImageTagsPrediction.getInstance()
 
-        val fxmlLoader = FXMLLoader(MainApplication::class.java.getResource("main-window-view.fxml"))
+        val fxmlLoader = FXMLLoader(MainPage::class.java.getResource("main-window-view.fxml"))
         val scene = Scene(fxmlLoader.load(), 640.0, 760.0)
         stage.title = "Image Tagger"
         stage.scene = scene
@@ -21,5 +21,5 @@ class MainApplication : Application() {
 }
 
 fun main() {
-    Application.launch(MainApplication::class.java)
+    Application.launch(MainPage::class.java)
 }
