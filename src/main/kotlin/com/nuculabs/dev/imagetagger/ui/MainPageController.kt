@@ -1,7 +1,6 @@
 package com.nuculabs.dev.imagetagger.ui
 
 import com.nuculabs.dev.imagetagger.tag_prediction.ImageTagsPrediction
-import com.nuculabs.dev.imagetagger.ui.controls.ImageTagsEntry
 import javafx.application.Platform
 import javafx.fxml.FXML
 import javafx.scene.control.Label
@@ -14,7 +13,7 @@ import javax.imageio.ImageIO
 
 
 class MainPageController {
-    private val logger: Logger = Logger.getLogger("InfoLogging")
+    private val logger: Logger = Logger.getLogger("MainPageController")
 
     @FXML
     private lateinit var verticalBox: VBox
@@ -44,14 +43,12 @@ class MainPageController {
                     val tags: List<String> = imageTagsPrediction.predictTags(imageFile)
                     Platform.runLater {
                         // Add image and prediction to the view.
-                        verticalBox.children.add(
-                            Label("${filePath.name} - $tags")
-                        )
+                        verticalBox.children.add(ImageTagsEntryControl(filePath.absolutePath, tags))
                         verticalBox.children.add(Separator())
                     }
                 }
                 Platform.runLater {
-                    statusLabel.setVisible(false)
+                    statusLabel.isVisible = false
                 }
             } catch (e: Exception) {
                 logger.warning("Error while predicting images $e")

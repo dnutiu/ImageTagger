@@ -1,5 +1,6 @@
 module com.nuculabs.dev.imagetagger.ui {
     requires javafx.controls;
+    requires javafx.graphics;
     requires javafx.fxml;
     requires kotlin.stdlib;
 
@@ -11,6 +12,6 @@ module com.nuculabs.dev.imagetagger.ui {
     requires java.logging;
     requires java.desktop;
 
-    opens com.nuculabs.dev.imagetagger.ui to javafx.fxml;
+    opens com.nuculabs.dev.imagetagger.ui to javafx.fxml, javafx.graphics;
     exports com.nuculabs.dev.imagetagger.ui;
 }
