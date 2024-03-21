@@ -1,4 +1,4 @@
-package com.nuculabs.dev.imagetagger.ui
+package com.nuculabs.dev.imagetagger.ui.controls
 import javafx.fxml.FXML
 import javafx.fxml.FXMLLoader
 import javafx.scene.control.TextArea
@@ -30,8 +30,8 @@ class ImageTagsEntryControl
     private lateinit var predictedImageTags: TextArea
 
     init {
-        val resource = ImageTagsEntryControl::class.java.getResource("controls/image-tags-entry.fxml")
-        logger.info("Using resource URL: $resource")
+        val resource = ImageTagsEntryControl::class.java.getResource("image-tags-entry.fxml")
+        logger.fine("Using resource URL: $resource")
         val fxmlLoader = FXMLLoader(resource)
         fxmlLoader.setRoot(this)
         fxmlLoader.setController(this)

@@ -13,5 +13,6 @@ module com.nuculabs.dev.imagetagger.ui {
     requires java.desktop;
 
     opens com.nuculabs.dev.imagetagger.ui to javafx.fxml, javafx.graphics;
+    opens com.nuculabs.dev.imagetagger.ui.controls to javafx.fxml, javafx.graphics;
     exports com.nuculabs.dev.imagetagger.ui;
 }
