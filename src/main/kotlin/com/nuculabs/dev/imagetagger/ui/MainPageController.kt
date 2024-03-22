@@ -37,6 +37,10 @@ class MainPageController {
      * A counter to keep track of the current image prediction.
      */
     private val processedImageFilesCount = AtomicInteger(0)
+
+    /**
+     * An integer to keep track of the total image files for a given prediction.
+     */
     private var imageFilesTotal = 0
 
     /**
@@ -64,10 +68,10 @@ class MainPageController {
 
             progressBar.isVisible = true
             progressBar.progress = 0.0
+            imageFilesTotal = filePaths.count()
             processedImageFilesCount.set(0)
-            // Create a new thread to predict the images.
+            // Create a new thread to predict the image tags.
             Thread {
-                imageFilesTotal = filePaths.count()
                 logger.info("Analyzing $imageFilesTotal files")
                 filePaths.forEach { filePath ->
                     workerSemaphore.acquire()
@@ -82,6 +86,7 @@ class MainPageController {
                             Platform.runLater {
                                 // Add image and prediction to the view.
                                 addNewImagePredictionEntry(imagePath, imageTags)
+                                updateProgressBar()
                                 workerSemaphore.release()
                             }
                         }
@@ -124,9 +129,15 @@ class MainPageController {
     ) {
         verticalBox.children.add(ImageTagsEntryControl(imagePath, imageTags))
         verticalBox.children.add(Separator())
+    }
+
+    /**
+     * Updates the progress bar of the UI.
+     */
+    fun updateProgressBar() {
+        logger.info("Progress ${processedImageFilesCount.get()}/${imageFilesTotal} ${progressBar.progress}")
         progressBar.progress =
             ((processedImageFilesCount.incrementAndGet() * 100) / imageFilesTotal).toDouble() / 100.0
-        logger.info("Progress ${processedImageFilesCount.get()}/${imageFilesTotal} ${progressBar.progress}")
         if (processedImageFilesCount.get() == imageFilesTotal) {
             progressBar.isVisible = false
             logger.info("Finished processing images.")
