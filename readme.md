@@ -21,7 +21,7 @@ The release archive is in the [releases page](https://github.com/dnutiu/ImageTag
 
 ### Building and Running from source
 
-To build from source you will need Java 21 JDK and Gradle.
+To build from source you will need Java 17 JDK and Gradle.
 
 Due to some GitHub limitations that do not allow me to upload large files, you'll need to download the AIModels
 zip file which contains the deep learning models and place them into the `ImageTagger/src/main/resources/AIModels` path.
