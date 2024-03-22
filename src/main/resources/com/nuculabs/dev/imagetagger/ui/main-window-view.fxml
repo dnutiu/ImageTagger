@@ -8,6 +8,15 @@
   <padding>
     <Insets bottom="20.0" left="30.0" right="30.0" top="30.0" />
   </padding>
+  <top>
+    <HBox alignment="CENTER_LEFT">
+      <padding>
+        <Insets bottom="5" left="5" right="5" top="10" />
+      </padding>
+      <Button onAction="#onTagImagesButtonClick" text="Tag Images" />
+      <Separator orientation="VERTICAL" style="-fx-padding: 10px" />
+    </HBox>
+  </top>
   <center>
     <ScrollPane>
       <VBox fx:id="verticalBox">
@@ -16,13 +25,6 @@
   </center>
 
   <bottom>
-    <HBox alignment="CENTER_LEFT">
-      <padding>
-        <Insets bottom="5" left="5" right="5" top="10" />
-      </padding>
-      <Button onAction="#onTagImagesButtonClick" text="Tag Images" />
-      <Separator orientation="VERTICAL" style="-fx-padding: 10px" />
-      <Label fx:id="statusLabel" visible="false" text="Predicting... please wait" />
-    </HBox>
+    <Label fx:id="statusLabel" visible="false" text="Predicting... please wait" />
   </bottom>
 </BorderPane>
