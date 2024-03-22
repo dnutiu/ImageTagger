@@ -25,6 +25,6 @@
   </center>
 
   <bottom>
-    <Label fx:id="statusLabel" visible="false" text="Predicting... please wait" />
+    <ProgressBar fx:id="progressBar" maxWidth="Infinity" visible="false"/>
   </bottom>
 </BorderPane>
