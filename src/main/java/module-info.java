@@ -11,6 +11,7 @@ module com.nuculabs.dev.imagetagger.ui {
     requires com.microsoft.onnxruntime;
     requires java.logging;
     requires java.desktop;
+    requires kotlinx.coroutines.core;
 
     opens com.nuculabs.dev.imagetagger.ui to javafx.fxml, javafx.graphics;
     opens com.nuculabs.dev.imagetagger.ui.controls to javafx.fxml, javafx.graphics;

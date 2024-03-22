@@ -4,7 +4,6 @@ import com.nuculabs.dev.imagetagger.tag_prediction.ImageTagsPrediction
 import com.nuculabs.dev.imagetagger.ui.controls.ImageTagsEntryControl
 import javafx.application.Platform
 import javafx.fxml.FXML
-import javafx.scene.control.Label
 import javafx.scene.control.ProgressBar
 import javafx.scene.control.Separator
 import javafx.scene.layout.VBox
@@ -12,7 +11,6 @@ import javafx.stage.FileChooser
 import java.io.File
 import java.util.logging.Logger
 import javax.imageio.ImageIO
-import kotlin.math.log
 
 
 class MainPageController {
@@ -38,7 +36,7 @@ class MainPageController {
 
         progressBar.isVisible = true
 
-        progressBar.progress = 0.0;
+        progressBar.progress = 0.0
         // Create a new thread to predict the images.
         val thread = Thread {
             val filePathsTotal = filePaths.count()
