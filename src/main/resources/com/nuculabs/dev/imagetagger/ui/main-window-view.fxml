@@ -30,6 +30,10 @@
   </center>
 
   <bottom>
-    <ProgressBar fx:id="progressBar" maxWidth="Infinity" visible="false"/>
+    <ProgressBar fx:id="progressBar" maxWidth="Infinity" visible="false">
+      <padding>
+        <Insets left="5" right="5" top="5" />
+      </padding>
+    </ProgressBar>
   </bottom>
 </BorderPane>
