@@ -58,11 +58,7 @@ class ImageTagsEntryControl
      */
     fun setImage(imagePath: String) {
         File(imagePath).inputStream().use {
-            imageView.image = Image(it)
-            imageView.resize(244.0, 244.0)
-            imageView.fitHeight = 244.0
-            imageView.fitWidth = 244.0
-            imageView.isSmooth = true
+            imageView.image = Image(it, 244.0, 244.0, true, true)
             imageView.isCache = true
         }
     }
