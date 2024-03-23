@@ -8,9 +8,9 @@ It allows photographers to automate the image tagging process. 📸
 
 ## Instructions
 
-1. Download and install Java 17.
-2. Download a release from the release page.
-3. Run the release.
+1. Download a release from the release page.
+2. Unzip the release.
+3. Run `ImageTagger-win\image\bin\app` or `ImageTagger-win\image\bin\ImageTagger` when available. 
 
 ![./docs/application.png](./docs/application.png)
 
