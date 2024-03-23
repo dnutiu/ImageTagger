@@ -19,17 +19,28 @@ class ImageTagsPrediction private constructor() {
     private var modelClasses: MutableList<String> = mutableListOf()
 
     init {
-        logger.info("Loaded ML model.")
-        ImageTagsPrediction::class.java.getResourceAsStream("/AIModels/prediction.onnx").let { modelFile ->
-            ortSession = ortEnv.createSession(
-                modelFile!!.readBytes(),
-                OrtSession.SessionOptions()
+        try {
+            logger.info("Loaded ML model.")
+            ImageTagsPrediction::class.java.getResourceAsStream("/AIModels/prediction.onnx").let { modelFile ->
+                ortSession = ortEnv.createSession(
+                    modelFile!!.readBytes(),
+                    OrtSession.SessionOptions()
+                )
+            }
+            ImageTagsPrediction::class.java.getResourceAsStream("/AIModels/prediction_categories.txt")
+                .let { classesFile ->
+                    modelClasses.addAll(0, classesFile!!.bufferedReader().readLines())
+                }
+            logger.info("Loaded ${modelClasses.size} model classes.")
+        } catch (e: NullPointerException) {
+            logger.severe(
+                "Failed to load model file or categories file. If you're building the project from " +
+                        "source, please follow the instructions from the README.md: " +
+                        "https://github.com/dnutiu/ImageTagger." +
+                        "Exception ${e.message}"
             )
+            throw e
         }
-        ImageTagsPrediction::class.java.getResourceAsStream("/AIModels/prediction_categories.txt").let { classesFile ->
-            modelClasses.addAll(0, classesFile!!.bufferedReader().readLines())
-        }
-        logger.info("Loaded ${modelClasses.size} model classes.")
     }
 
     private fun processImage(bufferedImage: BufferedImage): Array<Array<Array<FloatArray>>> {
