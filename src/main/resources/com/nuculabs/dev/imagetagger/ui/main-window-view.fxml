@@ -7,12 +7,12 @@
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 <BorderPane prefHeight="537.0" prefWidth="725.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17.0.2-ea" fx:controller="com.nuculabs.dev.imagetagger.ui.MainPageController">
   <padding>
-    <Insets bottom="20.0" left="30.0" right="30.0" top="30.0" />
+    <Insets bottom="20.0" left="30.0" right="30.0" top="20.0" />
   </padding>
   <top>
     <HBox alignment="CENTER_LEFT">
       <padding>
-        <Insets bottom="5" left="5" right="5" top="10" />
+        <Insets bottom="5" left="5" right="5"/>
       </padding>
       <Button onAction="#onTagImagesButtonClick" text="Tag Images">
         <graphic>
