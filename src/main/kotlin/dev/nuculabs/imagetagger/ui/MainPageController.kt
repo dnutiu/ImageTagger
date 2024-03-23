@@ -18,6 +18,8 @@ import javax.imageio.ImageIO
 
 
 class MainPageController {
+    private val logger: Logger = Logger.getLogger("MainPageController")
+
     /**
      * The thread pool worker pool.
      */
@@ -48,8 +50,6 @@ class MainPageController {
      */
     private val imageTagsPrediction = ImageTagsPrediction.getInstance()
 
-
-    private val logger: Logger = Logger.getLogger("MainPageController")
 
     @FXML
     private lateinit var progressBar: ProgressBar
@@ -142,5 +142,12 @@ class MainPageController {
             progressBar.isVisible = false
             logger.info("Finished processing images.")
         }
+    }
+
+    /**
+     * Shuts down the MainPageController.
+     */
+    fun shutdown() {
+        workerPool.shutdownNow()
     }
 }
