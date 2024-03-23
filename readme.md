@@ -8,7 +8,11 @@ It allows photographers to automate the image tagging process. 📸
 
 ## Instructions
 
-TBD
+1. Download and install Java 17.
+2. Download a release from the release page.
+3. Run the release.
+
+![./docs/application.png](./docs/application.png)
 
 Photo credit: [https://unsplash.com/@ndcphoto](https://unsplash.com/@ndcphoto)
 
