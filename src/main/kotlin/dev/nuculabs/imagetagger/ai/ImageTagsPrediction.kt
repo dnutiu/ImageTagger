@@ -1,4 +1,4 @@
-package com.nuculabs.dev.imagetagger.tag_prediction
+package dev.nuculabs.imagetagger.ai
 
 import ai.onnxruntime.OnnxTensor
 import ai.onnxruntime.OrtEnvironment

@@ -1,4 +1,4 @@
-module com.nuculabs.dev.imagetagger.ui {
+module dev.nuculabs.imagetagger.ui {
     requires javafx.controls;
     requires javafx.graphics;
     requires javafx.fxml;
@@ -15,7 +15,7 @@ module com.nuculabs.dev.imagetagger.ui {
     requires org.kordamp.ikonli.fontawesome5;
     requires kotlinx.coroutines.core;
 
-    opens com.nuculabs.dev.imagetagger.ui to javafx.fxml, javafx.graphics;
-    opens com.nuculabs.dev.imagetagger.ui.controls to javafx.fxml, javafx.graphics;
-    exports com.nuculabs.dev.imagetagger.ui;
+    opens dev.nuculabs.imagetagger.ui to javafx.fxml, javafx.graphics;
+    opens dev.nuculabs.imagetagger.ui.controls to javafx.fxml, javafx.graphics;
+    exports dev.nuculabs.imagetagger.ui;
 }

@@ -1,6 +1,6 @@
-package com.nuculabs.dev.imagetagger.ui
+package dev.nuculabs.imagetagger.ui
 
-import com.nuculabs.dev.imagetagger.tag_prediction.ImageTagsPrediction
+import dev.nuculabs.imagetagger.ai.ImageTagsPrediction
 import javafx.application.Application
 import javafx.fxml.FXMLLoader
 import javafx.scene.Scene

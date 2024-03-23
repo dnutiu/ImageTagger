@@ -24,8 +24,8 @@ tasks.withType(JavaCompile) {
 }
 
 application {
-  mainModule = 'com.nuculabs.dev.imagetagger.ui'
-  mainClass = 'com.nuculabs.dev.imagetagger.ui.MainPage'
+  mainModule = 'dev.nuculabs.imagetagger.ui'
+  mainClass = 'dev.nuculabs.imagetagger.ui.MainPage'
 }
 kotlin {
   jvmToolchain( 17 )

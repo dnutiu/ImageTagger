@@ -1,7 +1,7 @@
-package com.nuculabs.dev.imagetagger.ui
+package dev.nuculabs.imagetagger.ui
 
-import com.nuculabs.dev.imagetagger.tag_prediction.ImageTagsPrediction
-import com.nuculabs.dev.imagetagger.ui.controls.ImageTagsEntryControl
+import dev.nuculabs.imagetagger.ai.ImageTagsPrediction
+import dev.nuculabs.imagetagger.ui.controls.ImageTagsEntryControl
 import javafx.application.Platform
 import javafx.fxml.FXML
 import javafx.scene.control.ProgressBar
