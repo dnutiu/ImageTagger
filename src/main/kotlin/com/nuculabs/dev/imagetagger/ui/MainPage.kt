@@ -20,6 +20,6 @@ class MainPage : Application() {
     }
 }
 
-fun main() {
-    Application.launch(MainPage::class.java)
+fun main(args: Array<String>) {
+    Application.launch(MainPage::class.java, *args)
 }
