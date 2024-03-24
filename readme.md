@@ -18,7 +18,8 @@ Photo credit: [https://unsplash.com/@ndcphoto](https://unsplash.com/@ndcphoto)
 
 ## Development
 
-If you want to build the application yourself, you will need Java 21 JDK.
+If you want to build the application yourself, you will need Java 17 JDK and the 
+AI models available in the AIModels release.
 
 The release archive is in the [releases page](https://github.com/dnutiu/ImageTagger/releases).
 
