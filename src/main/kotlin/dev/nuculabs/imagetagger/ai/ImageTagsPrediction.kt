@@ -20,7 +20,7 @@ class ImageTagsPrediction private constructor() {
 
     init {
         try {
-            logger.info("Loaded ML model.")
+            logger.info("Loading ML model. Please wait.")
             ImageTagsPrediction::class.java.getResourceAsStream("/dev/nuculabs/imagetagger/ai/prediction.onnx").let { modelFile ->
                 ortSession = ortEnv.createSession(
                     modelFile!!.readBytes(),

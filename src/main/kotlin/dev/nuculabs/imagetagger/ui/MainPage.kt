@@ -6,6 +6,8 @@ import javafx.fxml.FXMLLoader
 import javafx.scene.Scene
 import javafx.scene.image.Image
 import javafx.stage.Stage
+import java.awt.Taskbar
+import java.awt.Toolkit
 import java.util.logging.Logger
 
 class MainPage : Application() {
@@ -13,9 +15,16 @@ class MainPage : Application() {
 
     private lateinit var fxmlLoader: FXMLLoader
 
+    private lateinit var mainStage: Stage
+
     override fun start(stage: Stage) {
-        ImageTagsPrediction.getInstance()
+        // Initial resource loading
         fxmlLoader = FXMLLoader(MainPage::class.java.getResource("main-window-view.fxml"))
+        mainStage = stage
+
+        ImageTagsPrediction.getInstance()
+        setUpApplicationIcon()
+
         // Load the FXML.
         val scene = Scene(fxmlLoader.load(), 640.0, 760.0)
 
@@ -28,9 +37,25 @@ class MainPage : Application() {
         stage.minWidth = 640.0
         stage.minHeight = 760.0
 
-        // Add main icon
-        stage.icons.add(Image(MainPage::class.java.getResourceAsStream("image-analysis.png")));
         stage.show()
+    }
+
+    /**
+     * Loads and sets up the main application icon.
+     */
+    private fun setUpApplicationIcon() {
+        // Add main icon
+        try {
+            // This is only needed for MacOS.
+            val defaultToolkit = Toolkit.getDefaultToolkit();
+            val taskbar = Taskbar.getTaskbar()
+            taskbar.iconImage = defaultToolkit.getImage(MainPage::class.java.getResource("image-analysis.png"))
+        } catch (e: UnsupportedOperationException) {
+            logger.fine("Failed to setup application icon.")
+        }
+
+        val mainIcon = Image(MainPage::class.java.getResourceAsStream("image-analysis.png"))
+        mainStage.icons.add(mainIcon)
     }
 
     override fun stop() {
