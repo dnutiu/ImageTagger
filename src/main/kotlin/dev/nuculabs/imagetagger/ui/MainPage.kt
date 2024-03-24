@@ -17,6 +17,7 @@ class MainPage : Application() {
 
         fxmlLoader = FXMLLoader(MainPage::class.java.getResource("main-window-view.fxml"))
         val scene = Scene(fxmlLoader.load(), 640.0, 760.0)
+        fxmlLoader.getController<MainPageController>().initialize()
         stage.title = "Image Tagger"
         stage.scene = scene
         stage.minWidth = 640.0

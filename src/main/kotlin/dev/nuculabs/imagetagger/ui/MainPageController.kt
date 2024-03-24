@@ -4,8 +4,11 @@ import dev.nuculabs.imagetagger.ai.ImageTagsPrediction
 import dev.nuculabs.imagetagger.ui.controls.ImageTagsEntryControl
 import javafx.application.Platform
 import javafx.fxml.FXML
+import javafx.scene.control.Button
 import javafx.scene.control.ProgressBar
 import javafx.scene.control.Separator
+import javafx.scene.layout.HBox
+import javafx.scene.layout.Priority
 import javafx.scene.layout.VBox
 import javafx.stage.FileChooser
 import java.io.File
@@ -50,6 +53,11 @@ class MainPageController {
      */
     private val imageTagsPrediction = ImageTagsPrediction.getInstance()
 
+    /**
+     * A boolean that when set to true it will stop the current image tagging operation.
+     * When a new operation is started the boolean is reset to false.
+     */
+    private var isCurrentTagsOperationCancelled: Boolean = false
 
     @FXML
     private lateinit var progressBar: ProgressBar
@@ -57,6 +65,16 @@ class MainPageController {
     @FXML
     private lateinit var verticalBox: VBox
 
+    @FXML
+    private lateinit var cancelButton: Button
+
+    /**
+     * Initializes the controller. Needs to be called after the dependencies have been injected.
+     */
+    fun initialize() {
+        HBox.setHgrow(progressBar, Priority.ALWAYS)
+        HBox.setHgrow(cancelButton, Priority.ALWAYS)
+    }
     /**
      * Prompts the user to select files then predicts tags for the selected image files.
      */
@@ -66,7 +84,9 @@ class MainPageController {
             val fileChooser = FileChooser().apply { title = "Choose images" }
             val filePaths = fileChooser.showOpenMultipleDialog(null) ?: return
 
+            isCurrentTagsOperationCancelled = false
             progressBar.isVisible = true
+            cancelButton.isVisible = true
             progressBar.progress = 0.0
             imageFilesTotal = filePaths.count()
             processedImageFilesCount.set(0)
@@ -74,8 +94,18 @@ class MainPageController {
             Thread {
                 logger.info("Analyzing $imageFilesTotal files")
                 filePaths.forEach { filePath ->
+                    if (isCurrentTagsOperationCancelled) {
+                        logger.info("Cancelling current prediction operation.")
+                        return@Thread
+                    }
                     workerSemaphore.acquire()
                     workerPool.submit {
+                        if (isCurrentTagsOperationCancelled) {
+                            logger.info("Image prediction task is cancelled.")
+                            workerSemaphore.release()
+                            return@submit
+                        }
+
                         predictImageTags(
                             filePath,
                             onError = {
@@ -94,6 +124,16 @@ class MainPageController {
                 }
             }.start()
         }
+    }
+
+    /**
+     * Cancels the prediction operation.
+     */
+    @FXML
+    fun onCancelTagImagesClick() {
+        isCurrentTagsOperationCancelled = true
+        progressBar.isVisible = false
+        cancelButton.isVisible = false
     }
 
     /**
@@ -140,6 +180,7 @@ class MainPageController {
             ((processedImageFilesCount.incrementAndGet() * 100) / imageFilesTotal).toDouble() / 100.0
         if (processedImageFilesCount.get() == imageFilesTotal) {
             progressBar.isVisible = false
+            cancelButton.isVisible = false
             logger.info("Finished processing images.")
         }
     }
@@ -148,6 +189,7 @@ class MainPageController {
      * Shuts down the MainPageController.
      */
     fun shutdown() {
+        isCurrentTagsOperationCancelled = true
         workerPool.shutdownNow()
     }
 }
