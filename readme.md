@@ -1,4 +1,4 @@
-Image Tagger
+# ![](./docs/image-analysis.png) Image Tagger 
 
 Image Tagger is a simple software application for predicting an image's keywords using a deep learning model based on resnet.
 
@@ -46,3 +46,7 @@ gradle run
 # Blog
 
 You can visit my tech blog at [https://blog.nuculabs.dev](https://blog.nuculabs.dev).
+
+# Credits
+
+- Icons: <a href="https://www.flaticon.com/free-icons/image-analysis" title="image analysis icons">Image analysis icons created by Dewi Sari - Flaticon</a>
