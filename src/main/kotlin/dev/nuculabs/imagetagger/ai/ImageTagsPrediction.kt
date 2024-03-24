@@ -43,6 +43,9 @@ class ImageTagsPrediction private constructor() {
         }
     }
 
+    /**
+     * Processes an image into an ONNX Tensor.
+     */
     private fun processImage(bufferedImage: BufferedImage): Array<Array<Array<FloatArray>>> {
         try {
             val tensorData = Array(1) {
