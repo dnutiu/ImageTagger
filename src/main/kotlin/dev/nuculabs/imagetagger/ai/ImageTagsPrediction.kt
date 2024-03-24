@@ -21,13 +21,13 @@ class ImageTagsPrediction private constructor() {
     init {
         try {
             logger.info("Loaded ML model.")
-            ImageTagsPrediction::class.java.getResourceAsStream("/AIModels/prediction.onnx").let { modelFile ->
+            ImageTagsPrediction::class.java.getResourceAsStream("/dev/nuculabs/imagetagger/ai/prediction.onnx").let { modelFile ->
                 ortSession = ortEnv.createSession(
                     modelFile!!.readBytes(),
                     OrtSession.SessionOptions()
                 )
             }
-            ImageTagsPrediction::class.java.getResourceAsStream("/AIModels/prediction_categories.txt")
+            ImageTagsPrediction::class.java.getResourceAsStream("/dev/nuculabs/imagetagger/ai/prediction_categories.txt")
                 .let { classesFile ->
                     modelClasses.addAll(0, classesFile!!.bufferedReader().readLines())
                 }

@@ -42,4 +42,4 @@ bin/
 .DS_Store
 
 # Deep learning models
-src/main/resources/AIModels/prediction.onnx
+src/main/resources/dev/nuculabs/imagetagger/ai/*.onnx
