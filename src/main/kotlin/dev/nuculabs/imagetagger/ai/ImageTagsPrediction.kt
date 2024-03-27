@@ -12,7 +12,7 @@ import javax.imageio.ImageIO
 /**
  * ImageTagsPrediction is a specialized class that predicts an Image's tags
  */
-class ImageTagsPrediction private constructor() {
+class ImageTagsPrediction {
     private val logger: Logger = Logger.getLogger("InfoLogging")
     private var ortEnv: OrtEnvironment = OrtEnvironment.getEnvironment()
     private var ortSession: OrtSession
