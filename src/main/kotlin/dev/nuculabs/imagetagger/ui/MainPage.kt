@@ -12,6 +12,7 @@ import java.util.logging.Logger
 
 class MainPage : Application() {
     private val logger: Logger = Logger.getLogger("MainPage")
+    private var imageTagger: ImageTagsPrediction? = null
 
     private lateinit var fxmlLoader: FXMLLoader
 
@@ -22,7 +23,7 @@ class MainPage : Application() {
         fxmlLoader = FXMLLoader(MainPage::class.java.getResource("main-window-view.fxml"))
         mainStage = stage
 
-        ImageTagsPrediction.getInstance()
+        imageTagger = ImageTagsPrediction.getInstance()
         setUpApplicationIcon()
 
         // Load the FXML.
@@ -62,6 +63,7 @@ class MainPage : Application() {
         logger.info("Stop called.")
         val controller = fxmlLoader.getController<MainPageController>()
         controller.shutdown()
+        imageTagger?.close()
     }
 }
 
