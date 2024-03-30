@@ -4,20 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dac8f85c-5bd6-4e05-9520-9e6a91c7f78e" name="Changes" comment="extract common ai-related functionality into img-ai">
-      <change afterPath="$PROJECT_DIR$/img-ai/src/main/java/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/img-ai/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/img-ai/build.gradle.kts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/img-ai/src/main/kotlin/ImageTagsPrediction.kt" beforeDir="false" afterPath="$PROJECT_DIR$/img-ai/src/main/kotlin/dev/nuculabs/imagetagger/ai/ImageTagsPrediction.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/img-ui/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/img-ui/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/img-ui/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/img-ui/src/main/java/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/img-ui/src/main/kotlin/dev/nuculabs/imagetagger/ai/ImageTagsPrediction.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/img-ui/src/main/resources/dev/nuculabs/imagetagger/ai/prediction_categories.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/img-ui/src/test/kotlin/ai/ImageTagsPredictionTests.kt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/img-ui/src/test/resources/ai/timisoara-bega.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/img-ui/src/test/resources/ai/timisoara-threes.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/img-ui/src/test/resources/ai/timisoara-water-tower.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/settings.gradle" afterDir="false" />
+    <list default="true" id="dac8f85c-5bd6-4e05-9520-9e6a91c7f78e" name="Changes" comment="add module-info.java">
+      <change beforePath="$PROJECT_DIR$/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/readme.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,24 +41,6 @@
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="ImageTagger-Solution" type="f1a62948:ProjectNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="ImageTagger-Solution" type="f1a62948:ProjectNode" />
-                <item name="img-ui" type="2d1252cf:ModuleNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="ImageTagger-Solution" type="f1a62948:ProjectNode" />
-                <item name="img-ui" type="2d1252cf:ModuleNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="ImageTagger-Solution" type="f1a62948:ProjectNode" />
-                <item name="img-ui" type="2d1252cf:ModuleNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-                <item name="distribution" type="c8890929:TasksNode$1" />
               </path>
             </expand>
             <select />
@@ -290,7 +260,7 @@
       <option name="presentableId" value="Default" />
       <updated>1711789328334</updated>
       <workItem from="1711789330084" duration="2109000" />
-      <workItem from="1711791444105" duration="4216000" />
+      <workItem from="1711791444105" duration="4705000" />
     </task>
     <task id="LOCAL-00001" summary="split ImageTagger into subproject img-ui">
       <option name="closed" value="true" />
@@ -324,7 +294,15 @@
       <option name="project" value="LOCAL" />
       <updated>1711793501074</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="add module-info.java">
+      <option name="closed" value="true" />
+      <created>1711796896478</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1711796896478</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -335,7 +313,8 @@
     <MESSAGE value="update readme.md" />
     <MESSAGE value="update gradle config" />
     <MESSAGE value="extract common ai-related functionality into img-ai" />
-    <option name="LAST_COMMIT_MESSAGE" value="extract common ai-related functionality into img-ai" />
+    <MESSAGE value="add module-info.java" />
+    <option name="LAST_COMMIT_MESSAGE" value="add module-info.java" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
