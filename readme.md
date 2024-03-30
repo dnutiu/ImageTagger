@@ -10,7 +10,7 @@ It allows photographers to automate the image tagging process. 📸
 
 1. Download a release from the release page.
 2. Unzip the release.
-3. Run `ImageTagger-win\image\bin\app` or `ImageTagger-win\image\bin\ImageTagger` when available. 
+3. Run `ImageTagger-win\image\bin\app` or `ImageTagger-win\image\bin\ImageTagger`. 
 
 ![./docs/application.png](./docs/application.png)
 
@@ -29,7 +29,8 @@ The release archive is in the [releases page](https://github.com/dnutiu/ImageTag
 To build from source you will need Java 17 JDK and Gradle.
 
 Due to some GitHub limitations that do not allow me to upload large files, you'll need to download the AIModels
-zip file which contains the deep learning models and place them into the `ImageTagger/src/main/resources/dev/nuculabs/imagetagger/ai` path.
+zip file which contains the deep learning models and place them into the 
+`ImageTagger/img-ai/src/main/resources/dev/nuculabs/imagetagger/ai/` path.
 
 To build the project run:
 

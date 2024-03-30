@@ -40,3 +40,6 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+
+# Deep learning models
+src/main/resources/dev/nuculabs/imagetagger/ai/*.onnx

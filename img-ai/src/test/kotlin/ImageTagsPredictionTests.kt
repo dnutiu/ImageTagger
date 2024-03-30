@@ -1,13 +1,13 @@
-package ai
+package dev.nuculabs.imagetagger.ai
 
-import dev.nuculabs.imagetagger.ai.ImageTagsPrediction
+import org.junit.jupiter.api.AfterAll
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.BeforeAll
 import org.junit.jupiter.api.Test
 import java.io.File
 import javax.imageio.ImageIO
 
 class ImageTagsPredictionTests {
-    private val imageTagsPrediction: ImageTagsPrediction = ImageTagsPrediction.getInstance()
 
     @Test
     fun testPredictTagsForBufferedImage_TimisoaraBega() {
@@ -101,6 +101,21 @@ class ImageTagsPredictionTests {
                 "travel destinations"
             ), tags
         )
+    }
+
+    companion object {
+        private lateinit var imageTagsPrediction: ImageTagsPrediction
+        @JvmStatic
+        @BeforeAll
+        fun setUp() {
+            imageTagsPrediction = ImageTagsPrediction()
+        }
+
+        @JvmStatic
+        @AfterAll
+        fun tearDown() {
+            imageTagsPrediction.close()
+        }
     }
 
 }

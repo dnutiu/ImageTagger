@@ -48,7 +48,7 @@ class MainPage : Application() {
         // Add main icon
         try {
             // This is only needed for MacOS.
-            val defaultToolkit = Toolkit.getDefaultToolkit();
+            val defaultToolkit = Toolkit.getDefaultToolkit()
             val taskbar = Taskbar.getTaskbar()
             taskbar.iconImage = defaultToolkit.getImage(MainPage::class.java.getResource("image-analysis.png"))
         } catch (e: UnsupportedOperationException) {
