@@ -1,5 +1,8 @@
 plugins {
+    id("java")
     kotlin("jvm") version "1.8.22"
+    id("org.javamodularity.moduleplugin") version "1.8.12"
+
 }
 
 group = "dev.nuculabs.imagetagger.ai"

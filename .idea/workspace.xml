@@ -4,16 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="dac8f85c-5bd6-4e05-9520-9e6a91c7f78e" name="Changes" comment="update gradle config">
-      <change afterPath="$PROJECT_DIR$/img-ai/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/img-ai/src/main/kotlin/ImageTagsPrediction.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/img-ai/src/main/resources/dev/nuculabs/imagetagger/ai/prediction_categories.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/img-ai/src/test/kotlin/ImageTagsPredictionTests.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/img-ai/src/test/resources/dev/nuculabs/imagetagger/ai/timisoara-bega.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/img-ai/src/test/resources/dev/nuculabs/imagetagger/ai/timisoara-threes.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/img-ai/src/test/resources/dev/nuculabs/imagetagger/ai/timisoara-water-tower.jpg" afterDir="false" />
+    <list default="true" id="dac8f85c-5bd6-4e05-9520-9e6a91c7f78e" name="Changes" comment="extract common ai-related functionality into img-ai">
+      <change afterPath="$PROJECT_DIR$/img-ai/src/main/java/module-info.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/img-ai/build.gradle.kts" beforeDir="false" afterPath="$PROJECT_DIR$/img-ai/build.gradle.kts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/img-ai/src/main/kotlin/ImageTagsPrediction.kt" beforeDir="false" afterPath="$PROJECT_DIR$/img-ai/src/main/kotlin/dev/nuculabs/imagetagger/ai/ImageTagsPrediction.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/img-ui/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/img-ui/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/img-ui/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/img-ui/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/img-ui/src/main/kotlin/dev/nuculabs/imagetagger/ai/ImageTagsPrediction.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/img-ui/src/main/resources/dev/nuculabs/imagetagger/ai/prediction_categories.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/img-ui/src/test/kotlin/ai/ImageTagsPredictionTests.kt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/img-ui/src/test/resources/ai/timisoara-bega.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/img-ui/src/test/resources/ai/timisoara-threes.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/img-ui/src/test/resources/ai/timisoara-water-tower.jpg" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/settings.gradle" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -54,20 +57,20 @@
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="ImageTagger-Solution" type="f1a62948:ProjectNode" />
-                <item name="img-ai" type="2d1252cf:ModuleNode" />
+                <item name="img-ui" type="2d1252cf:ModuleNode" />
               </path>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="ImageTagger-Solution" type="f1a62948:ProjectNode" />
-                <item name="img-ai" type="2d1252cf:ModuleNode" />
+                <item name="img-ui" type="2d1252cf:ModuleNode" />
                 <item name="Tasks" type="e4a08cd1:TasksNode" />
               </path>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
                 <item name="ImageTagger-Solution" type="f1a62948:ProjectNode" />
-                <item name="img-ai" type="2d1252cf:ModuleNode" />
+                <item name="img-ui" type="2d1252cf:ModuleNode" />
                 <item name="Tasks" type="e4a08cd1:TasksNode" />
-                <item name="verification" type="c8890929:TasksNode$1" />
+                <item name="distribution" type="c8890929:TasksNode$1" />
               </path>
             </expand>
             <select />
@@ -75,6 +78,14 @@
         </projects_view>
       </state>
     </system>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+        <option value="module-info" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -94,7 +105,11 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Gradle.Build img-ui.executor": "Run",
+    "Gradle.ImageTagger [build].executor": "Run",
     "Gradle.ImageTagger:img-ai [test].executor": "Run",
+    "Gradle.ImageTagger:img-ui [clean].executor": "Run",
+    "Gradle.ImageTagger:img-ui [jlinkZip].executor": "Run",
+    "Gradle.ImageTagsPredictionTests.executor": "Run",
     "Gradle.img-ui [build].executor": "Run",
     "Gradle.img-ui [run].executor": "Run",
     "Kotlin.MainPageKt.executor": "Debug",
@@ -128,15 +143,18 @@
       <recent name="$PROJECT_DIR$/img-ai/src/main/resources/dev/nuculabs/imagetagger/ai" />
       <recent name="$PROJECT_DIR$" />
     </key>
+    <key name="MoveKotlinTopLevelDeclarationsDialog.RECENTS_KEY">
+      <recent name="dev.nuculabs.imagetagger.ai" />
+    </key>
     <key name="CopyKotlinDeclarationDialog.RECENTS_KEY">
       <recent name="" />
     </key>
   </component>
-  <component name="RunManager" selected="Gradle.ImageTagsPredictionTests">
-    <configuration name="ImageTagger:img-ai [test]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+  <component name="RunManager" selected="Gradle.ImageTagger:img-ui [jlinkZip]">
+    <configuration name="ImageTagger:img-ui [clean]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
       <ExternalSystemSettings>
         <option name="executionName" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$/img-ai" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/img-ui" />
         <option name="externalSystemIdString" value="GRADLE" />
         <option name="scriptParameters" />
         <option name="taskDescriptions">
@@ -144,7 +162,29 @@
         </option>
         <option name="taskNames">
           <list>
-            <option value="test" />
+            <option value="clean" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
+    </configuration>
+    <configuration name="ImageTagger:img-ui [jlinkZip]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/img-ui" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="jlinkZip" />
           </list>
         </option>
         <option name="vmOptions" />
@@ -225,9 +265,10 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Gradle.ImageTagsPredictionTests" />
-        <item itemvalue="Gradle.ImageTagger:img-ai [test]" />
+        <item itemvalue="Gradle.ImageTagger:img-ui [jlinkZip]" />
+        <item itemvalue="Gradle.ImageTagger:img-ui [clean]" />
         <item itemvalue="Gradle.img-ui [run]" />
+        <item itemvalue="Gradle.ImageTagsPredictionTests" />
         <item itemvalue="Gradle.img-ui [build]" />
       </list>
     </recent_temporary>
@@ -249,7 +290,7 @@
       <option name="presentableId" value="Default" />
       <updated>1711789328334</updated>
       <workItem from="1711789330084" duration="2109000" />
-      <workItem from="1711791444105" duration="1766000" />
+      <workItem from="1711791444105" duration="4216000" />
     </task>
     <task id="LOCAL-00001" summary="split ImageTagger into subproject img-ui">
       <option name="closed" value="true" />
@@ -275,7 +316,15 @@
       <option name="project" value="LOCAL" />
       <updated>1711791812195</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="extract common ai-related functionality into img-ai">
+      <option name="closed" value="true" />
+      <created>1711793501074</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1711793501074</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -285,7 +334,8 @@
     <MESSAGE value="split ImageTagger into subproject img-ui" />
     <MESSAGE value="update readme.md" />
     <MESSAGE value="update gradle config" />
-    <option name="LAST_COMMIT_MESSAGE" value="update gradle config" />
+    <MESSAGE value="extract common ai-related functionality into img-ai" />
+    <option name="LAST_COMMIT_MESSAGE" value="extract common ai-related functionality into img-ai" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
