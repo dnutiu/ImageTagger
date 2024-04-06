@@ -1,4 +1,4 @@
-package dev.nuculabs.imagetagger.ui.controls
+package dev.nuculabs.imagetagger.ui.controls.programatic
 
 import dev.nuculabs.imagetagger.ui.MainPageController
 import dev.nuculabs.imagetagger.ui.alerts.AboutAlert

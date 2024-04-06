@@ -1,7 +1,7 @@
 package dev.nuculabs.imagetagger.ui
 
 import dev.nuculabs.imagetagger.ai.ImageTagsPrediction
-import dev.nuculabs.imagetagger.ui.controls.ApplicationMenuBar
+import dev.nuculabs.imagetagger.ui.controls.programatic.ApplicationMenuBar
 import javafx.application.Application
 import javafx.fxml.FXMLLoader
 import javafx.scene.Scene
