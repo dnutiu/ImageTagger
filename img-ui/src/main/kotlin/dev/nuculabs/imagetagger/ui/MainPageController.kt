@@ -75,6 +75,7 @@ class MainPageController {
         HBox.setHgrow(progressBar, Priority.ALWAYS)
         HBox.setHgrow(cancelButton, Priority.ALWAYS)
     }
+
     /**
      * Prompts the user to select files then predicts tags for the selected image files.
      */

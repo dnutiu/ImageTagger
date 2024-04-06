@@ -1,10 +1,12 @@
 package dev.nuculabs.imagetagger.ui
 
 import dev.nuculabs.imagetagger.ai.ImageTagsPrediction
+import dev.nuculabs.imagetagger.ui.controls.ApplicationMenuBar
 import javafx.application.Application
 import javafx.fxml.FXMLLoader
 import javafx.scene.Scene
 import javafx.scene.image.Image
+import javafx.scene.layout.BorderPane
 import javafx.stage.Stage
 import java.awt.Taskbar
 import java.awt.Toolkit
@@ -30,13 +32,17 @@ class MainPage : Application() {
         val scene = Scene(fxmlLoader.load(), 640.0, 760.0)
 
         // Initialize the controller.
-        fxmlLoader.getController<MainPageController>().initialize()
+        val mainPageController = fxmlLoader.getController<MainPageController>()
+        mainPageController.initialize()
 
         // Set up the stage.
         stage.title = "Image Tagger"
         stage.scene = scene
         stage.minWidth = 640.0
         stage.minHeight = 760.0
+
+        // Add menu bar
+        (scene.root as BorderPane).children.add(ApplicationMenuBar(mainPageController))
 
         stage.show()
     }
