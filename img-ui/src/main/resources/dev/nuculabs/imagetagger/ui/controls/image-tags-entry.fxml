@@ -6,20 +6,16 @@
 
 <?import javafx.scene.image.ImageView?>
 <fx:root type="javafx.scene.layout.HBox" xmlns:fx="http://javafx.com/fxml">
-    <padding>
-        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
-    </padding>
-    <HBox>
-        <StackPane style="-fx-background-color: lightgray;" prefWidth="244" prefHeight="244">
-            <ImageView fx:id="imageView" />
-        </StackPane>
-        <VBox>
-            <padding>
-                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
-            </padding>
-            <Label fx:id="fileNameLabel" />
-            <Label text="Predicted tags:"/>
-            <TextArea fx:id="predictedImageTags" editable="false" wrapText="true" prefColumnCount="20"/>
-        </VBox>
-    </HBox>
+    <StackPane style="-fx-background-color: lightgray;" prefWidth="244" prefHeight="244">
+        <ImageView fx:id="imageView"/>
+    </StackPane>
+    <VBox>
+        <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+        </padding>
+        <Label fx:id="fileNameLabel"/>
+        <Label text="Predicted tags:"/>
+        <TextArea fx:id="predictedImageTags" editable="false" wrapText="true" prefColumnCount="20"/>
+    </VBox>
+
 </fx:root>

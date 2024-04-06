@@ -2,11 +2,17 @@ package dev.nuculabs.imagetagger.ui.controls
 
 import javafx.fxml.FXML
 import javafx.fxml.FXMLLoader
+import javafx.scene.control.Alert
+import javafx.scene.control.Alert.AlertType
+import javafx.scene.control.ButtonType
 import javafx.scene.control.Label
 import javafx.scene.control.TextArea
 import javafx.scene.image.Image
 import javafx.scene.image.ImageView
+import javafx.scene.input.MouseEvent
 import javafx.scene.layout.HBox
+import javafx.scene.layout.Region
+import java.awt.Desktop
 import java.io.File
 import java.io.IOException
 import java.util.logging.Logger
@@ -15,8 +21,7 @@ import java.util.logging.Logger
 /**
  * This class is used to create a custom control for the image prediction entry.
  */
-class ImageTagsEntryControl
-    (imagePath: String, predictions: List<String>) : HBox() {
+class ImageTagsEntryControl(private val imagePath: String, predictions: List<String>) : HBox() {
     private val logger: Logger = Logger.getLogger("ImageTagsEntryControl")
 
     /**
@@ -50,6 +55,15 @@ class ImageTagsEntryControl
         }
         setImage(imagePath)
         setText(predictions)
+
+        setupEventHandlers()
+    }
+
+    private fun setupEventHandlers() {
+        imageView.addEventHandler(MouseEvent.MOUSE_CLICKED) {
+            onOpenImageClick()
+            it.consume()
+        }
     }
 
     /**
@@ -57,19 +71,38 @@ class ImageTagsEntryControl
      *
      * @param predictions The prediction list.
      */
-    fun setText(predictions: List<String>) {
+    private fun setText(predictions: List<String>) {
         predictedImageTags.text = predictions.joinToString { it }
     }
 
     /**
      * Setter for setting the image.
      */
-    fun setImage(imagePath: String) {
+    private fun setImage(imagePath: String) {
         val file = File(imagePath)
         file.inputStream().use {
             imageView.image = Image(it, 244.0, 244.0, true, true)
             imageView.isCache = true
         }
         fileNameLabel.text = "File: ${file.name}"
+    }
+
+    /**
+     * Opens the image in the user's default image viewing application.
+     * If the operation fails it will display an error alert.
+     */
+    fun onOpenImageClick() {
+        if (Desktop.isDesktopSupported()) {
+            val desktop = Desktop.getDesktop()
+            if (desktop.isSupported(Desktop.Action.OPEN)) {
+                desktop.open(File(imagePath))
+            }
+        } else {
+            logger.severe("Cannot open image $imagePath. Desktop action not supported!")
+            val alert =
+                Alert(AlertType.ERROR, "Can't open file: $imagePath\nOperation is not supported!", ButtonType.CLOSE)
+            alert.dialogPane.minHeight = Region.USE_PREF_SIZE
+            alert.show()
+        }
     }
 }
