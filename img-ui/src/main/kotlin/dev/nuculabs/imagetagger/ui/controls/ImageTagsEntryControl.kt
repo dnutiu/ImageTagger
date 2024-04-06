@@ -59,9 +59,15 @@ class ImageTagsEntryControl(private val imagePath: String, predictions: List<Str
         setupEventHandlers()
     }
 
+    /**
+     * Sets up event handlers.
+     */
     private fun setupEventHandlers() {
+        // Open image on double-click.
         imageView.addEventHandler(MouseEvent.MOUSE_CLICKED) {
-            onOpenImageClick()
+            if (it.clickCount >= 2) {
+                onOpenImageClick()
+            }
             it.consume()
         }
     }
