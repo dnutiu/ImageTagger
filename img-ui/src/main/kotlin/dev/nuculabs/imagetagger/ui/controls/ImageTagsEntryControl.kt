@@ -1,17 +1,14 @@
 package dev.nuculabs.imagetagger.ui.controls
 
+import dev.nuculabs.imagetagger.ui.alerts.ErrorAlert
 import javafx.fxml.FXML
 import javafx.fxml.FXMLLoader
-import javafx.scene.control.Alert
-import javafx.scene.control.Alert.AlertType
-import javafx.scene.control.ButtonType
 import javafx.scene.control.Label
 import javafx.scene.control.TextArea
 import javafx.scene.image.Image
 import javafx.scene.image.ImageView
 import javafx.scene.input.MouseEvent
 import javafx.scene.layout.HBox
-import javafx.scene.layout.Region
 import java.awt.Desktop
 import java.io.File
 import java.io.IOException
@@ -105,10 +102,7 @@ class ImageTagsEntryControl(private val imagePath: String, predictions: List<Str
             }
         } else {
             logger.severe("Cannot open image $imagePath. Desktop action not supported!")
-            val alert =
-                Alert(AlertType.ERROR, "Can't open file: $imagePath\nOperation is not supported!", ButtonType.CLOSE)
-            alert.dialogPane.minHeight = Region.USE_PREF_SIZE
-            alert.show()
+            ErrorAlert("Can't open file: $imagePath\nOperation is not supported!")
         }
     }
 }
