@@ -17,6 +17,7 @@
             <padding>
                 <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
             </padding>
+            <Label fx:id="fileNameLabel" />
             <Label text="Predicted tags:"/>
             <TextArea fx:id="predictedImageTags" editable="false" wrapText="true" prefColumnCount="20"/>
         </VBox>

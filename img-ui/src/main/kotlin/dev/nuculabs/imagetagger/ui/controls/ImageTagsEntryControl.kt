@@ -1,6 +1,8 @@
 package dev.nuculabs.imagetagger.ui.controls
+
 import javafx.fxml.FXML
 import javafx.fxml.FXMLLoader
+import javafx.scene.control.Label
 import javafx.scene.control.TextArea
 import javafx.scene.image.Image
 import javafx.scene.image.ImageView
@@ -29,6 +31,12 @@ class ImageTagsEntryControl
     @FXML
     private lateinit var predictedImageTags: TextArea
 
+    /**
+     * The file name label.
+     */
+    @FXML
+    private lateinit var fileNameLabel: Label
+
     init {
         val resource = ImageTagsEntryControl::class.java.getResource("image-tags-entry.fxml")
         logger.fine("Using resource URL: $resource")
@@ -45,21 +53,23 @@ class ImageTagsEntryControl
     }
 
     /**
-     * Getter for the image view.
+     * Setter for predicted tags text.
      *
      * @param predictions The prediction list.
      */
     fun setText(predictions: List<String>) {
-        predictedImageTags.text =  predictions.joinToString { it }
+        predictedImageTags.text = predictions.joinToString { it }
     }
 
     /**
      * Setter for setting the image.
      */
     fun setImage(imagePath: String) {
-        File(imagePath).inputStream().use {
+        val file = File(imagePath)
+        file.inputStream().use {
             imageView.image = Image(it, 244.0, 244.0, true, true)
             imageView.isCache = true
         }
+        fileNameLabel.text = "File: ${file.name}"
     }
 }
