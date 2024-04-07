@@ -16,12 +16,12 @@ class AboutPage {
 
     @FXML
     fun openBlog() {
-        Desktop.getDesktop().browse(URL("https://blog.nuculabs.dev").toURI());
+        Desktop.getDesktop().browse(URL("https://blog.nuculabs.dev").toURI())
     }
 
     @FXML
     fun openGithub() {
-        Desktop.getDesktop().browse(URL("https://github.com/dnutiu/ImageTagger").toURI());
+        Desktop.getDesktop().browse(URL("https://github.com/dnutiu/ImageTagger").toURI())
     }
 
     @FXML
