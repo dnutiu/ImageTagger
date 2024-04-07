@@ -5,8 +5,12 @@
 <?import javafx.scene.layout.*?>
 
 <?import org.kordamp.ikonli.javafx.FontIcon?>
-<BorderPane prefHeight="537.0" prefWidth="725.0" xmlns:fx="http://javafx.com/fxml/1"
-            xmlns="http://javafx.com/javafx/17.0.2-ea" fx:controller="dev.nuculabs.imagetagger.ui.MainPageController">
+<BorderPane prefHeight="537.0" prefWidth="725.0"
+            xmlns:fx="http://javafx.com/fxml/1"
+            xmlns="http://javafx.com/javafx/17.0.2-ea"
+            fx:controller="dev.nuculabs.imagetagger.ui.MainPageController"
+            stylesheets="@main-window-view.css"
+>
     <padding>
         <Insets bottom="20.0" left="30.0" right="30.0" top="20.0"/>
     </padding>
@@ -41,6 +45,9 @@
                 </padding>
             </ProgressBar>
             <Button fx:id="cancelButton" onAction="#onCancelTagImagesClick" alignment="CENTER_RIGHT" visible="false">
+                <tooltip>
+                    <Tooltip text="Cancel"/>
+                </tooltip>
                 <graphic>
                     <FontIcon iconLiteral="far-times-circle" iconColor="red" iconSize="16"/>
                 </graphic>
