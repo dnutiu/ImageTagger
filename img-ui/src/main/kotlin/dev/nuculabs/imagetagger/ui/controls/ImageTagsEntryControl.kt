@@ -3,10 +3,13 @@ package dev.nuculabs.imagetagger.ui.controls
 import dev.nuculabs.imagetagger.ui.alerts.ErrorAlert
 import javafx.fxml.FXML
 import javafx.fxml.FXMLLoader
+import javafx.scene.control.Button
 import javafx.scene.control.Label
 import javafx.scene.control.TextArea
 import javafx.scene.image.Image
 import javafx.scene.image.ImageView
+import javafx.scene.input.Clipboard
+import javafx.scene.input.ClipboardContent
 import javafx.scene.input.MouseEvent
 import javafx.scene.layout.HBox
 import java.awt.Desktop
@@ -39,6 +42,12 @@ class ImageTagsEntryControl(private val imagePath: String, predictions: List<Str
     @FXML
     private lateinit var fileNameLabel: Label
 
+    /**
+     * The copy tags button.
+     */
+    @FXML
+    private lateinit var copyTagsButton: Button
+
     init {
         val resource = ImageTagsEntryControl::class.java.getResource("image-tags-entry.fxml")
         logger.fine("Using resource URL: $resource")
@@ -66,6 +75,10 @@ class ImageTagsEntryControl(private val imagePath: String, predictions: List<Str
                 onOpenImageClick()
             }
             it.consume()
+        }
+        // Copy Tags Button
+        copyTagsButton.setOnMouseClicked {
+            onCopyTagsClick()
         }
     }
 
@@ -104,5 +117,15 @@ class ImageTagsEntryControl(private val imagePath: String, predictions: List<Str
             logger.severe("Cannot open image $imagePath. Desktop action not supported!")
             ErrorAlert("Can't open file: $imagePath\nOperation is not supported!")
         }
+    }
+
+    /**
+     * Copies the image tags to the system clipboard.
+     */
+    fun onCopyTagsClick() {
+        val clipboard: Clipboard = Clipboard.getSystemClipboard()
+        val content = ClipboardContent()
+        content.putString(predictedImageTags.text)
+        clipboard.setContent(content)
     }
 }

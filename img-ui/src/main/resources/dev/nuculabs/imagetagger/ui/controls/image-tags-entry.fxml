@@ -5,6 +5,7 @@
 <?import javafx.geometry.Insets?>
 
 <?import javafx.scene.image.ImageView?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
 <fx:root type="javafx.scene.layout.HBox" xmlns:fx="http://javafx.com/fxml">
     <StackPane style="-fx-background-color: lightgray;" prefWidth="244" prefHeight="244">
         <ImageView fx:id="imageView"/>
@@ -16,6 +17,16 @@
         <Label fx:id="fileNameLabel"/>
         <Label text="Predicted tags:"/>
         <TextArea fx:id="predictedImageTags" editable="false" wrapText="true" prefColumnCount="20"/>
+        <HBox>
+            <padding>
+                <Insets top="5.0"/>
+            </padding>
+            <Button fx:id="copyTagsButton" text="Copy Tags">
+                <graphic>
+                    <FontIcon iconLiteral="far-clipboard" iconSize="16"/>
+                </graphic>
+            </Button>
+        </HBox>
     </VBox>
 
 </fx:root>
