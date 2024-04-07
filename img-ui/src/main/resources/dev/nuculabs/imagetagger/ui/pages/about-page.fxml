@@ -42,6 +42,12 @@
                 <FontIcon iconLiteral="fab-github" iconSize="16"/>
             </graphic>
         </Hyperlink>
-
+        <HBox alignment="CENTER_RIGHT" prefWidth="Infinity">
+            <Button fx:id="closeButton" text="Close" onAction="#closePage">
+                <graphic>
+                    <FontIcon iconLiteral="fas-window-close" iconSize="16"/>
+                </graphic>
+            </Button>
+        </HBox>
     </VBox>
 </AnchorPane>
