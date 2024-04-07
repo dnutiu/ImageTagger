@@ -5,6 +5,7 @@ import javafx.scene.layout.Region
 
 /**
  * Represents the alert shown when the user clicks on About.
+ * // TODO: Move this into a panel to make links clickable.
  */
 class AboutAlert : Alert(AlertType.INFORMATION) {
     init {
