@@ -17,5 +17,6 @@ module dev.nuculabs.imagetagger.ui {
 
     opens dev.nuculabs.imagetagger.ui to javafx.fxml, javafx.graphics;
     opens dev.nuculabs.imagetagger.ui.controls to javafx.fxml, javafx.graphics;
+    opens dev.nuculabs.imagetagger.ui.pages to javafx.fxml, javafx.graphics;
     exports dev.nuculabs.imagetagger.ui;
 }

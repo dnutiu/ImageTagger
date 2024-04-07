@@ -3,6 +3,7 @@ package dev.nuculabs.imagetagger.ui
 import dev.nuculabs.imagetagger.ai.ImageTagsPrediction
 import dev.nuculabs.imagetagger.ui.controls.programatic.ApplicationMenuBar
 import javafx.application.Application
+import javafx.application.Platform
 import javafx.fxml.FXMLLoader
 import javafx.scene.Scene
 import javafx.scene.image.Image
@@ -40,6 +41,10 @@ class MainPage : Application() {
         stage.scene = scene
         stage.minWidth = 640.0
         stage.minHeight = 760.0
+        // Whe the main window is hidden we exit the application.
+        stage.setOnHidden {
+            Platform.exit()
+        }
 
         // Add menu bar
         (scene.root as BorderPane).children.add(ApplicationMenuBar(mainPageController))

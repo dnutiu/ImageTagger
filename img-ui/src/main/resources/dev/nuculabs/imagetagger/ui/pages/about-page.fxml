@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+<AnchorPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="dev.nuculabs.imagetagger.ui.pages.AboutPage"
+            stylesheets="@about-page.css"
+>
+    <VBox prefHeight="250.0" maxWidth="350" spacing="10">
+        <padding>
+            <Insets top="25" bottom="25" right="15" left="15"/>
+        </padding>
+        <HBox>
+            <HBox>
+                <padding>
+                    <Insets right="25"/>
+                </padding>
+                <ImageView>
+                    <Image
+                            url="@../image-analysis.png"
+                            backgroundLoading="true"
+                    />
+                </ImageView>
+            </HBox>
+            <Label wrapText="true"
+                   text="Image Tagger is an application that predicts an image's tags using deep-learning. It is useful for photographers who want to improve their workflow by auto-tagging images."/>
+        </HBox>
+        <Label text="Author: Denis-Cosmin Nutiu"/>
+        <Hyperlink text="Website: blog.nuculabs.dev" onAction="#openBlog">
+            <graphic>
+                <FontIcon iconLiteral="fas-blog" iconSize="16"/>
+            </graphic>
+        </Hyperlink>
+        <Hyperlink text="Github: github.com/dnutiu/ImageTagger" onAction="#openGithub">
+            <graphic>
+                <FontIcon iconLiteral="fab-github" iconSize="16"/>
+            </graphic>
+        </Hyperlink>
+
+    </VBox>
+</AnchorPane>

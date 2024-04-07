@@ -1,7 +1,7 @@
 package dev.nuculabs.imagetagger.ui.controls.programatic
 
 import dev.nuculabs.imagetagger.ui.MainPageController
-import dev.nuculabs.imagetagger.ui.alerts.AboutAlert
+import dev.nuculabs.imagetagger.ui.pages.AboutPage
 import javafx.scene.control.Menu
 import javafx.scene.control.MenuBar
 import javafx.scene.control.MenuItem
@@ -23,7 +23,7 @@ class ApplicationMenuBar(private val mainPageController: MainPageController) : M
     private fun setupAboutMenu() {
         val aboutMenuItem = MenuItem("About")
         aboutMenuItem.setOnAction {
-            AboutAlert()
+            AboutPage.show()
         }
         aboutMenu.items.add(aboutMenuItem)
     }
