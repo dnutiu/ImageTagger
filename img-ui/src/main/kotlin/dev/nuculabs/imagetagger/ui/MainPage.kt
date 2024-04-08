@@ -1,5 +1,6 @@
 package dev.nuculabs.imagetagger.ui
 
+import dev.nuculabs.imagetagger.ai.IImageTagsPrediction
 import dev.nuculabs.imagetagger.ai.ImageTagsPrediction
 import dev.nuculabs.imagetagger.ui.controls.programatic.ApplicationMenuBar
 import javafx.application.Application
@@ -11,22 +12,25 @@ import javafx.scene.layout.BorderPane
 import javafx.stage.Stage
 import java.awt.Taskbar
 import java.awt.Toolkit
+import java.io.Closeable
 import java.util.logging.Logger
 
 class MainPage : Application() {
+    private val serviceLocator = BasicServiceLocator.getInstance()
     private val logger: Logger = Logger.getLogger("MainPage")
-    private var imageTagger: ImageTagsPrediction? = null
+    private lateinit var imageTagger: IImageTagsPrediction
 
     private lateinit var fxmlLoader: FXMLLoader
 
     private lateinit var mainStage: Stage
 
     override fun start(stage: Stage) {
+        configureServiceLocator()
         // Initial resource loading
         fxmlLoader = FXMLLoader(MainPage::class.java.getResource("main-window-view.fxml"))
         mainStage = stage
 
-        imageTagger = ImageTagsPrediction.getInstance()
+        imageTagger = BasicServiceLocator.getInstance().imageTagsPrediction
         setUpApplicationIcon()
 
         // Load the FXML.
@@ -53,6 +57,13 @@ class MainPage : Application() {
     }
 
     /**
+     * Configures the service locator.
+     */
+    private fun configureServiceLocator() {
+        serviceLocator.imageTagsPrediction = ImageTagsPrediction()
+    }
+
+    /**
      * Loads and sets up the main application icon.
      */
     private fun setUpApplicationIcon() {
@@ -74,7 +85,7 @@ class MainPage : Application() {
         logger.info("Stop called.")
         val controller = fxmlLoader.getController<MainPageController>()
         controller.shutdown()
-        imageTagger?.close()
+        (imageTagger as Closeable).close()
     }
 }
 

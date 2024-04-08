@@ -4,6 +4,7 @@ import ai.onnxruntime.OnnxTensor
 import ai.onnxruntime.OrtEnvironment
 import ai.onnxruntime.OrtSession
 import java.awt.image.BufferedImage
+import java.io.Closeable
 import java.io.IOException
 import java.io.InputStream
 import java.util.logging.Logger
@@ -12,7 +13,7 @@ import javax.imageio.ImageIO
 /**
  * ImageTagsPrediction is a specialized class that predicts an Image's tags
  */
-class ImageTagsPrediction {
+class ImageTagsPrediction : IImageTagsPrediction, Closeable {
     private val logger: Logger = Logger.getLogger("InfoLogging")
     private var ortEnv: OrtEnvironment = OrtEnvironment.getEnvironment()
     private var ortSession: OrtSession
@@ -21,12 +22,13 @@ class ImageTagsPrediction {
     init {
         try {
             logger.info("Loading ML model. Please wait.")
-            ImageTagsPrediction::class.java.getResourceAsStream("/dev/nuculabs/imagetagger/ai/prediction.onnx").let { modelFile ->
-                ortSession = ortEnv.createSession(
-                    modelFile!!.readBytes(),
-                    OrtSession.SessionOptions()
-                )
-            }
+            ImageTagsPrediction::class.java.getResourceAsStream("/dev/nuculabs/imagetagger/ai/prediction.onnx")
+                .let { modelFile ->
+                    ortSession = ortEnv.createSession(
+                        modelFile!!.readBytes(),
+                        OrtSession.SessionOptions()
+                    )
+                }
             ImageTagsPrediction::class.java.getResourceAsStream("/dev/nuculabs/imagetagger/ai/prediction_categories.txt")
                 .let { classesFile ->
                     modelClasses.addAll(0, classesFile!!.bufferedReader().readLines())
@@ -46,7 +48,7 @@ class ImageTagsPrediction {
     /**
      * Processes an image into an ONNX Tensor.
      */
-    private fun processImage(bufferedImage: BufferedImage): Array<Array<Array<FloatArray>>> {
+    fun processImage(bufferedImage: BufferedImage): Array<Array<Array<FloatArray>>> {
         try {
             val tensorData = Array(1) {
                 Array(3) {
@@ -101,7 +103,7 @@ class ImageTagsPrediction {
      * Uses the ML model to predict tags for a given bitmap.
      */
     @Suppress("UNCHECKED_CAST")
-    private fun predictTagsInternal(bufferedImage: BufferedImage): List<String> {
+    fun predictTagsInternal(bufferedImage: BufferedImage): List<String> {
         // 1. Get input and output names
         val inputName: String = ortSession.inputNames.iterator().next()
         val outputName: String = ortSession.outputNames.iterator().next()
@@ -136,14 +138,14 @@ class ImageTagsPrediction {
     /**
      * Predicts tags for a Bitmap.
      */
-    fun predictTags(image: BufferedImage): List<String> {
+    override fun predictTags(image: BufferedImage): List<String> {
         return predictTagsInternal(image)
     }
 
     /**
      * Predicts tags for a given image input stream.
      */
-    fun predictTags(input: InputStream?): List<String> {
+    override fun predictTags(input: InputStream?): List<String> {
         if (input == null) {
             return ArrayList()
         }
@@ -154,20 +156,9 @@ class ImageTagsPrediction {
     /**
      * Close the session and environment.
      */
-    fun close() {
+    override fun close() {
         ortSession.close()
         ortEnv.close()
         modelClasses.clear()
-    }
-
-    // Singleton Pattern
-    companion object {
-        @Volatile
-        private var instance: ImageTagsPrediction? = null
-
-        fun getInstance() =
-            instance ?: synchronized(this) {
-                instance ?: ImageTagsPrediction().also { instance = it }
-            }
     }
 }

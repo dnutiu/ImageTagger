@@ -1,6 +1,5 @@
 package dev.nuculabs.imagetagger.ui
 
-import dev.nuculabs.imagetagger.ai.ImageTagsPrediction
 import dev.nuculabs.imagetagger.ui.controls.ImageTagsEntryControl
 import javafx.application.Platform
 import javafx.fxml.FXML
@@ -51,7 +50,7 @@ class MainPageController {
     /**
      * The ImageTagsPrediction service instance.
      */
-    private val imageTagsPrediction = ImageTagsPrediction.getInstance()
+    private val imageTagsPrediction = BasicServiceLocator.getInstance().imageTagsPrediction
 
     /**
      * A boolean that when set to true it will stop the current image tagging operation.
