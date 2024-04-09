@@ -10,9 +10,9 @@
     <padding>
         <Insets left="10" right="10"/>
     </padding>
-    <Label text="9 Apr. 2024" styleClass="sessionTitle"/>
+    <Label fx:id="title" text="9 Apr. 2024" styleClass="sessionTitle"/>
     <Pane HBox.hgrow="ALWAYS"/>
-    <Button text="Open Directory">
+    <Button fx:id="openDirectoryButton" onAction="#openDirectory" text="Open Directory">
         <tooltip>
             <Tooltip text="Open directory of the images"/>
         </tooltip>
@@ -20,5 +20,4 @@
             <FontIcon iconLiteral="far-folder-open" iconSize="16"/>
         </graphic>
     </Button>
-    <Separator/>
 </fx:root>
