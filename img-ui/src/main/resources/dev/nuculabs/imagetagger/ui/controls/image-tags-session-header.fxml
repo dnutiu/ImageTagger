@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+<?import javafx.geometry.Insets?>
+<fx:root type="javafx.scene.layout.HBox" xmlns:fx="http://javafx.com/fxml" alignment="CENTER" spacing="5">
+    <padding>
+        <Insets left="10" right="10"/>
+    </padding>
+    <Label text="9 Apr. 2024" styleClass="sessionTitle"/>
+    <Pane HBox.hgrow="ALWAYS"/>
+    <Button text="Open Directory">
+        <tooltip>
+            <Tooltip text="Open directory of the images"/>
+        </tooltip>
+        <graphic>
+            <FontIcon iconLiteral="far-folder-open" iconSize="16"/>
+        </graphic>
+    </Button>
+    <Separator/>
+</fx:root>
