@@ -5,7 +5,8 @@
 
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 <?import javafx.geometry.Insets?>
-<fx:root type="javafx.scene.layout.HBox" xmlns:fx="http://javafx.com/fxml" alignment="CENTER" spacing="5">
+<fx:root type="javafx.scene.layout.HBox" xmlns:fx="http://javafx.com/fxml" alignment="CENTER" spacing="5"
+         stylesheets="@image-tags-session-header.css">
     <padding>
         <Insets left="10" right="10"/>
     </padding>
