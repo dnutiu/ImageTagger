@@ -1,6 +1,7 @@
 package dev.nuculabs.imagetagger.ui
 
 import dev.nuculabs.imagetagger.ui.controls.ImageTagsEntryControl
+import dev.nuculabs.imagetagger.ui.controls.ImageTagsSessionHeader
 import javafx.application.Platform
 import javafx.fxml.FXML
 import javafx.scene.control.Button
@@ -93,6 +94,11 @@ class MainPageController {
             // Create a new thread to predict the image tags.
             Thread {
                 logger.info("Analyzing $imageFilesTotal files")
+                if (filePaths.isNotEmpty()) {
+                    Platform.runLater {
+                        addNewImagePredictionHeader(imageFilesTotal, filePaths.first().parent)
+                    }
+                }
                 filePaths.forEach { filePath ->
                     if (isCurrentTagsOperationCancelled) {
                         logger.info("Cancelling current prediction operation.")
@@ -168,6 +174,16 @@ class MainPageController {
         imageTags: List<String>,
     ) {
         verticalBox.children.add(ImageTagsEntryControl(imagePath, imageTags))
+        verticalBox.children.add(Separator())
+    }
+
+    /**
+     * Display the image prediction session header on the UI.
+     */
+    fun addNewImagePredictionHeader(totalImages: Int, directoryPath: String) {
+        val imageSessionHeader = ImageTagsSessionHeader()
+        imageSessionHeader.updateHeader(totalImages, directoryPath)
+        verticalBox.children.add(imageSessionHeader)
         verticalBox.children.add(Separator())
     }
 

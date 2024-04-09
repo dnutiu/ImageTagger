@@ -5,13 +5,14 @@
 
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 <?import javafx.geometry.Insets?>
-<fx:root type="javafx.scene.layout.HBox" xmlns:fx="http://javafx.com/fxml" alignment="CENTER" spacing="5">
+<fx:root type="javafx.scene.layout.HBox" xmlns:fx="http://javafx.com/fxml" alignment="CENTER" spacing="5"
+         stylesheets="@image-tags-session-header.css">
     <padding>
         <Insets left="10" right="10"/>
     </padding>
-    <Label text="9 Apr. 2024" styleClass="sessionTitle"/>
+    <Label fx:id="title" text="9 Apr. 2024" styleClass="sessionTitle"/>
     <Pane HBox.hgrow="ALWAYS"/>
-    <Button text="Open Directory">
+    <Button fx:id="openDirectoryButton" onAction="#openDirectory" text="Open Directory">
         <tooltip>
             <Tooltip text="Open directory of the images"/>
         </tooltip>
@@ -19,5 +20,4 @@
             <FontIcon iconLiteral="far-folder-open" iconSize="16"/>
         </graphic>
     </Button>
-    <Separator/>
 </fx:root>
