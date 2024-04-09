@@ -45,6 +45,9 @@ class ImageTagsSessionHeader : HBox() {
         }
 
         updateHeader(0)
+        openDirectoryButton.setOnAction {
+            openDirectory()
+        }
     }
 
     /**

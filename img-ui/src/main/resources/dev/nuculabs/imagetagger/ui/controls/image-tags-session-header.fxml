@@ -12,7 +12,7 @@
     </padding>
     <Label fx:id="title" text="9 Apr. 2024" styleClass="sessionTitle"/>
     <Pane HBox.hgrow="ALWAYS"/>
-    <Button fx:id="openDirectoryButton" onAction="#openDirectory" text="Open Directory">
+    <Button fx:id="openDirectoryButton" text="Open Folder">
         <tooltip>
             <Tooltip text="Open directory of the images"/>
         </tooltip>
