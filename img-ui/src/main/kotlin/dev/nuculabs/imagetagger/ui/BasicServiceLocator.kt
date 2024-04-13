@@ -10,6 +10,7 @@ import dev.nuculabs.imagetagger.ai.IImageTagsPrediction
  */
 class BasicServiceLocator private constructor() {
     internal lateinit var imageTagsPrediction: IImageTagsPrediction
+    internal lateinit var mainPageController: MainPageController
 
     // Singleton Pattern
     companion object {

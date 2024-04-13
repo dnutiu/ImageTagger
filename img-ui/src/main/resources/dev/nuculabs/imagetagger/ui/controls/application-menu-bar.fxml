@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<fx:root type="javafx.scene.control.MenuBar" xmlns:fx="http://javafx.com/fxml">
+</fx:root>

@@ -2,13 +2,11 @@ package dev.nuculabs.imagetagger.ui
 
 import dev.nuculabs.imagetagger.ai.IImageTagsPrediction
 import dev.nuculabs.imagetagger.ai.ImageTagsPrediction
-import dev.nuculabs.imagetagger.ui.controls.programatic.ApplicationMenuBar
 import javafx.application.Application
 import javafx.application.Platform
 import javafx.fxml.FXMLLoader
 import javafx.scene.Scene
 import javafx.scene.image.Image
-import javafx.scene.layout.BorderPane
 import javafx.stage.Stage
 import java.awt.Taskbar
 import java.awt.Toolkit
@@ -39,6 +37,8 @@ class MainPage : Application() {
         // Initialize the controller.
         val mainPageController = fxmlLoader.getController<MainPageController>()
         mainPageController.initialize()
+        // Set MainPage controller.
+        serviceLocator.mainPageController = fxmlLoader.getController()
 
         // Set up the stage.
         stage.title = "Image Tagger"
@@ -51,7 +51,7 @@ class MainPage : Application() {
         }
 
         // Add menu bar
-        (scene.root as BorderPane).children.add(ApplicationMenuBar(mainPageController))
+        // (scene.root as BorderPane).children.add(ApplicationMenuBar(mainPageController))
 
         stage.show()
     }
