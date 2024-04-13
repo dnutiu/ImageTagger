@@ -23,6 +23,9 @@ AI models available in the AIModels release.
 
 The release archive is in the [releases page](https://github.com/dnutiu/ImageTagger/releases).
 
+Note: Some desktop related features do not work under Linux. I have tested them on Fedora 39.
+Contributions are welcome :-)
+
 
 ### Building and Running from source
 
