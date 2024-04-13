@@ -2,4 +2,10 @@
 
 <?import javafx.scene.control.*?>
 <fx:root type="javafx.scene.control.MenuBar" xmlns:fx="http://javafx.com/fxml">
+    <Menu text="File">
+        <MenuItem text="Tag Images" onAction="#fileMenuTagImages"/>
+    </Menu>
+    <Menu text="About">
+        <MenuItem text="About" onAction="#aboutMenuShowAbout"/>
+    </Menu>
 </fx:root>

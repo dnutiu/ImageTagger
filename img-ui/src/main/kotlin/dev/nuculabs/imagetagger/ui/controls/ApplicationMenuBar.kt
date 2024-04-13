@@ -3,18 +3,16 @@ package dev.nuculabs.imagetagger.ui.controls
 import dev.nuculabs.imagetagger.ui.BasicServiceLocator
 import dev.nuculabs.imagetagger.ui.MainPageController
 import dev.nuculabs.imagetagger.ui.pages.AboutPage
+import javafx.fxml.FXML
 import javafx.fxml.FXMLLoader
 import javafx.scene.control.Menu
 import javafx.scene.control.MenuBar
-import javafx.scene.control.MenuItem
 import java.io.IOException
 
 /**
  * Used as the application menu bar.
  */
 class ApplicationMenuBar : MenuBar() {
-    private val fileMenu = Menu("File")
-    private val aboutMenu = Menu("About")
     private val mainPageController: MainPageController by lazy {
         BasicServiceLocator.getInstance().mainPageController
     }
@@ -32,29 +30,23 @@ class ApplicationMenuBar : MenuBar() {
             throw RuntimeException(exception)
         }
 
-        initialize()
-    }
-
-    private fun initialize() {
         useSystemMenuBarProperty().set(false)
-        menus.addAll(fileMenu, aboutMenu)
-        setupFileMenu()
-        setupAboutMenu()
     }
 
-    private fun setupAboutMenu() {
-        val aboutMenuItem = MenuItem("About")
-        aboutMenuItem.setOnAction {
-            AboutPage.show()
-        }
-        aboutMenu.items.add(aboutMenuItem)
+    /**
+     * Calls the tag images functionality from the main controller.
+     * The controller is retrieved in a lazy-like fashion.
+     */
+    @FXML
+    private fun fileMenuTagImages() {
+        mainPageController.onTagImagesButtonClick()
     }
 
-    private fun setupFileMenu() {
-        val tagImagesMenuItem = MenuItem("Tag Images")
-        tagImagesMenuItem.setOnAction {
-            mainPageController.onTagImagesButtonClick()
-        }
-        fileMenu.items.add(tagImagesMenuItem)
+    /**
+     * Shows the about dialog.
+     */
+    @FXML
+    private fun aboutMenuShowAbout() {
+        AboutPage.show()
     }
 }
