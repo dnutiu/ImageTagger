@@ -5,7 +5,6 @@ import dev.nuculabs.imagetagger.ui.MainPageController
 import dev.nuculabs.imagetagger.ui.pages.AboutPage
 import javafx.fxml.FXML
 import javafx.fxml.FXMLLoader
-import javafx.scene.control.Menu
 import javafx.scene.control.MenuBar
 import java.io.IOException
 
