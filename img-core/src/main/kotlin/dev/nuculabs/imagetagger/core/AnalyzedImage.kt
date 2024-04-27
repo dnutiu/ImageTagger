@@ -15,6 +15,7 @@ class AnalyzedImage(private val file: File, imageTagsPrediction: IImageTagsPredi
     private var predictedTags: List<String> = emptyList()
     private val logger: Logger = Logger.getLogger("AnalyzedImage")
     private var error: String = ""
+    private var hasError: Boolean = false
 
     /**
      * Initializes the analyzed image and predicts its tags.
@@ -23,24 +24,39 @@ class AnalyzedImage(private val file: File, imageTagsPrediction: IImageTagsPredi
         try {
             bufferedImage = ImageIO.read(File(file.absolutePath))
             predictedTags = imageTagsPrediction.predictTags(bufferedImage!!)
+        } catch (e: NullPointerException) {
+            val message = "Error while predicting image: invalid image type or type not supported."
+            logger.warning(message)
+            hasError = true
+            error = message
         } catch (e: Exception) {
-            logger.warning("Error while predicting images $e")
+            val message = "Error loading image $e"
+            logger.warning(message)
+            hasError = true
             error = e.message.toString()
         }
+    }
+
+    /**
+     * Returns a boolean indicating if the image analysis has errors.
+     * The flag is `True` if it has errors, `False` otherwise.
+     */
+    fun hasError(): Boolean {
+        return hasError
     }
 
     /**
      * Returns the prediction error
      */
     fun errorMessage(): String {
-        return error;
+        return error
     }
 
     /**
      * Returns the absolute file path of the image.
      */
     fun absolutePath(): String {
-        return file.absolutePath;
+        return file.absolutePath
     }
 
     /**

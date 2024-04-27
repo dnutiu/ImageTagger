@@ -1,0 +1,5 @@
+
+.errorLabel {
+    -fx-text-background-color: red;
+    -fx-font-family: "Inter Bold"
+}

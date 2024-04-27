@@ -60,8 +60,13 @@ class ImageTagsEntryControl(private val image: AnalyzedImage) : HBox() {
         } catch (exception: IOException) {
             throw RuntimeException(exception)
         }
-        setImage(image.absolutePath())
-        setText(image.tags())
+        setImage(image)
+        if (image.hasError()) {
+            setText(listOf(image.errorMessage()))
+        } else {
+            setText(image.tags())
+        }
+
 
         setupEventHandlers()
     }
@@ -95,13 +100,20 @@ class ImageTagsEntryControl(private val image: AnalyzedImage) : HBox() {
     /**
      * Setter for setting the image.
      */
-    private fun setImage(imagePath: String) {
-        val file = File(imagePath)
-        file.inputStream().use {
-            imageView.image = Image(it, 244.0, 244.0, true, true)
+    private fun setImage(analyzedImage: AnalyzedImage) {
+        val file = File(analyzedImage.absolutePath())
+        if (analyzedImage.hasError()) {
+            fileNameLabel.text = "Failed: ${file.name}"
+            fileNameLabel.styleClass.add("errorLabel")
+            imageView.image = Image(this.javaClass.getResourceAsStream("images/failed.png"))
             imageView.isCache = true
+        } else {
+            file.inputStream().use {
+                imageView.image = Image(it, 244.0, 244.0, true, true)
+                imageView.isCache = true
+            }
+            fileNameLabel.text = "File: ${file.name}"
         }
-        fileNameLabel.text = "File: ${file.name}"
     }
 
     /**

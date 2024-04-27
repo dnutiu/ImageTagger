@@ -6,8 +6,8 @@
 
 <?import javafx.scene.image.ImageView?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
-<fx:root type="javafx.scene.layout.HBox" xmlns:fx="http://javafx.com/fxml">
-    <StackPane style="-fx-background-color: lightgray;" prefWidth="244" prefHeight="244">
+<fx:root type="javafx.scene.layout.HBox" xmlns:fx="http://javafx.com/fxml" stylesheets="@image-tags-entry.css">
+    <StackPane prefWidth="244" prefHeight="244">
         <ImageView fx:id="imageView"/>
     </StackPane>
     <VBox>
