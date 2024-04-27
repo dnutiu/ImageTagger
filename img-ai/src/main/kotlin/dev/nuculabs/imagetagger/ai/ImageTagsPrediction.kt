@@ -3,6 +3,7 @@ package dev.nuculabs.imagetagger.ai
 import ai.onnxruntime.OnnxTensor
 import ai.onnxruntime.OrtEnvironment
 import ai.onnxruntime.OrtSession
+import dev.nuculabs.imagetagger.core.abstractions.IImageTagsPrediction
 import java.awt.image.BufferedImage
 import java.io.Closeable
 import java.io.IOException

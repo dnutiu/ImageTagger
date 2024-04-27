@@ -1,6 +1,6 @@
 package dev.nuculabs.imagetagger.ui
 
-import dev.nuculabs.imagetagger.ai.IImageTagsPrediction
+import dev.nuculabs.imagetagger.core.abstractions.IImageTagsPrediction
 
 /**
  * BasicServiceLocator is implemented to avoid polluting the apps with singletons.

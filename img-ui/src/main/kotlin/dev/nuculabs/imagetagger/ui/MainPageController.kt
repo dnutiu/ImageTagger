@@ -1,5 +1,6 @@
 package dev.nuculabs.imagetagger.ui
 
+import dev.nuculabs.imagetagger.core.AnalyzedImage
 import dev.nuculabs.imagetagger.ui.controls.ImageTagsEntryControl
 import dev.nuculabs.imagetagger.ui.controls.ImageTagsSessionHeader
 import javafx.application.Platform
@@ -11,13 +12,11 @@ import javafx.scene.layout.HBox
 import javafx.scene.layout.Priority
 import javafx.scene.layout.VBox
 import javafx.stage.FileChooser
-import java.io.File
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 import java.util.concurrent.Semaphore
 import java.util.concurrent.atomic.AtomicInteger
 import java.util.logging.Logger
-import javax.imageio.ImageIO
 
 
 class MainPageController {
@@ -34,7 +33,7 @@ class MainPageController {
     private val maxImagesPredictionInProgress = Runtime.getRuntime().availableProcessors()
 
     /**
-     * Semaphore to limit the maximum amount of predictions submitted to the tread pool.
+     * Semaphore to limit the maximum number of predictions submitted to the tread pool.
      */
     private val workerSemaphore: Semaphore = Semaphore(maxImagesPredictionInProgress)
 
@@ -54,8 +53,8 @@ class MainPageController {
     private val imageTagsPrediction = BasicServiceLocator.getInstance().imageTagsPrediction
 
     /**
-     * A boolean that when set to true it will stop the current image tagging operation.
-     * When a new operation is started the boolean is reset to false.
+     * A boolean that when set to, true it will stop the current image tagging operation.
+     * When a new operation is started, the boolean is reset to false.
      */
     private var isCurrentTagsOperationCancelled: Boolean = false
 
@@ -112,19 +111,12 @@ class MainPageController {
                             return@submit
                         }
 
-                        predictImageTags(
-                            filePath,
-                            onError = {
-                                workerSemaphore.release()
-                            }
-                        ) { imagePath, imageTags ->
-                            // Add newly predicted tags to UI.
-                            Platform.runLater {
-                                // Add image and prediction to the view.
-                                addNewImagePredictionEntry(imagePath, imageTags)
-                                updateProgressBar()
-                                workerSemaphore.release()
-                            }
+                        val analyzedImage = AnalyzedImage(filePath, this.imageTagsPrediction)
+                        workerSemaphore.release()
+                        Platform.runLater {
+                            // Add image and prediction to the view.
+                            addNewImagePredictionEntry(analyzedImage)
+                            updateProgressBar()
                         }
                     }
                 }
@@ -143,37 +135,14 @@ class MainPageController {
     }
 
     /**
-     * Predicts an image tags and executes an action with it.
-     *
-     * @param filePath - The image file's absolute path.
-     */
-    fun predictImageTags(
-        filePath: File,
-        onError: (Exception) -> Unit,
-        onSuccess: (String, List<String>) -> Unit
-    ) {
-        try {
-            // Get predictions for the image.
-            val imageFile = ImageIO.read(File(filePath.absolutePath))
-            val tags: List<String> = imageTagsPrediction.predictTags(imageFile)
-            onSuccess(filePath.absolutePath, tags)
-        } catch (e: Exception) {
-            logger.warning("Error while predicting images $e")
-            onError(e)
-        }
-    }
-
-    /**
      * Updates the UI with a new ImagePredictionEntry.
      *
-     * @param imagePath - The image path.
-     * @param imageTags - The image's tags.
+     * @param analyzedImage - The analyzed image instance.
      */
     fun addNewImagePredictionEntry(
-        imagePath: String,
-        imageTags: List<String>,
+        analyzedImage: AnalyzedImage,
     ) {
-        verticalBox.children.add(ImageTagsEntryControl(imagePath, imageTags))
+        verticalBox.children.add(ImageTagsEntryControl(analyzedImage))
         verticalBox.children.add(Separator())
     }
 

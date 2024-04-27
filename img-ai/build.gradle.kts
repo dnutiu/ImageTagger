@@ -14,6 +14,7 @@ repositories {
 }
 
 dependencies {
+    implementation(project(":img-core"))
     implementation("com.microsoft.onnxruntime:onnxruntime:1.17.1")
     testImplementation("org.jetbrains.kotlin:kotlin-test")
     testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")

@@ -1,5 +1,6 @@
 package dev.nuculabs.imagetagger.ui.controls
 
+import dev.nuculabs.imagetagger.core.AnalyzedImage
 import dev.nuculabs.imagetagger.ui.alerts.ErrorAlert
 import javafx.fxml.FXML
 import javafx.fxml.FXMLLoader
@@ -21,7 +22,7 @@ import java.util.logging.Logger
 /**
  * This class is used to create a custom control for the image prediction entry.
  */
-class ImageTagsEntryControl(private val imagePath: String, predictions: List<String>) : HBox() {
+class ImageTagsEntryControl(private val image: AnalyzedImage) : HBox() {
     private val logger: Logger = Logger.getLogger("ImageTagsEntryControl")
 
     /**
@@ -59,8 +60,8 @@ class ImageTagsEntryControl(private val imagePath: String, predictions: List<Str
         } catch (exception: IOException) {
             throw RuntimeException(exception)
         }
-        setImage(imagePath)
-        setText(predictions)
+        setImage(image.absolutePath())
+        setText(image.tags())
 
         setupEventHandlers()
     }
@@ -111,11 +112,11 @@ class ImageTagsEntryControl(private val imagePath: String, predictions: List<Str
         if (Desktop.isDesktopSupported()) {
             val desktop = Desktop.getDesktop()
             if (desktop.isSupported(Desktop.Action.OPEN)) {
-                desktop.open(File(imagePath))
+                desktop.open(File(image.absolutePath()))
             }
         } else {
-            logger.severe("Cannot open image $imagePath. Desktop action not supported!")
-            ErrorAlert("Can't open file: $imagePath\nOperation is not supported!")
+            logger.severe("Cannot open image ${image.absolutePath()}. Desktop action not supported!")
+            ErrorAlert("Can't open file: ${image.absolutePath()}\nOperation is not supported!")
         }
     }
 

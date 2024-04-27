@@ -1,4 +1,4 @@
-package dev.nuculabs.imagetagger.ai
+package dev.nuculabs.imagetagger.core.abstractions
 
 import java.awt.image.BufferedImage
 import java.io.InputStream

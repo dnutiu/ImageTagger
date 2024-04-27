@@ -14,6 +14,7 @@ module dev.nuculabs.imagetagger.ui {
     requires org.kordamp.ikonli.fontawesome5;
     requires kotlinx.coroutines.core;
     requires dev.nuculabs.imagetagger.ai;
+    requires dev.nuculabs.imagetagger.core;
 
     opens dev.nuculabs.imagetagger.ui to javafx.fxml, javafx.graphics;
     opens dev.nuculabs.imagetagger.ui.controls to javafx.fxml, javafx.graphics;

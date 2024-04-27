@@ -38,6 +38,7 @@ javafx {
 
 dependencies {
   implementation(project(":img-ai"))
+  implementation(project(":img-core"))
   implementation('org.controlsfx:controlsfx:11.1.2')
   implementation('com.dlsc.formsfx:formsfx-core:11.6.0') {
     exclude(group: 'org.openjfx')
