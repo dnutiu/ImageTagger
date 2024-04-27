@@ -191,13 +191,15 @@ class MainPageController {
      * Updates the progress bar of the UI.
      */
     fun updateProgressBar() {
-        logger.info("Progress ${processedImageFilesCount.get()}/${imageFilesTotal} ${progressBar.progress}")
-        progressBar.progress =
-            ((processedImageFilesCount.incrementAndGet() * 100) / imageFilesTotal).toDouble() / 100.0
-        if (processedImageFilesCount.get() == imageFilesTotal) {
-            progressBar.isVisible = false
-            cancelButton.isVisible = false
-            logger.info("Finished processing images.")
+        synchronized(this) {
+            logger.info("Progress ${processedImageFilesCount.get()}/${imageFilesTotal} ${progressBar.progress}")
+            val processedImages = processedImageFilesCount.incrementAndGet()
+            progressBar.progress = ((processedImages * 100) / imageFilesTotal).toDouble() / 100.0
+            if (processedImageFilesCount.get() == imageFilesTotal) {
+                progressBar.isVisible = false
+                cancelButton.isVisible = false
+                logger.info("Finished processing images.")
+            }
         }
     }
 
