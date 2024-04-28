@@ -1,70 +1,71 @@
 plugins {
-  id 'java'
-  id 'application'
-  id 'org.jetbrains.kotlin.jvm' version '1.8.22'
-  id 'org.javamodularity.moduleplugin' version '1.8.12'
-  id 'org.openjfx.javafxplugin' version '0.0.13'
-  id 'org.beryx.jlink' version '2.25.0'
+    id 'java'
+    id 'application'
+    id 'org.jetbrains.kotlin.jvm' version '1.8.22'
+    id 'org.javamodularity.moduleplugin' version '1.8.12'
+    id 'org.openjfx.javafxplugin' version '0.0.13'
+    id 'org.beryx.jlink' version '2.25.0'
 }
 
 group 'com.nuculabs.dev'
 version '1.2'
 
 repositories {
-  mavenCentral()
+    mavenCentral()
 }
 
 ext {
-  junitVersion = '5.10.0'
+    junitVersion = '5.10.0'
 }
 
 
 tasks.withType(JavaCompile) {
-  options.encoding = 'UTF-8'
+    options.encoding = 'UTF-8'
 }
 
 application {
-  mainModule = 'dev.nuculabs.imagetagger.ui'
-  mainClass = 'dev.nuculabs.imagetagger.ui.MainPage'
+    mainModule = 'dev.nuculabs.imagetagger.ui'
+    mainClass = 'dev.nuculabs.imagetagger.ui.MainPage'
 }
 kotlin {
-  jvmToolchain( 17 )
+    jvmToolchain(17)
 }
 
 javafx {
-  version = '21'
-  modules = ['javafx.controls', 'javafx.fxml']
+    version = '21'
+    modules = ['javafx.controls', 'javafx.fxml']
 }
 
 dependencies {
-  implementation(project(":img-ai"))
-  implementation(project(":img-core"))
-  implementation('org.controlsfx:controlsfx:11.1.2')
-  implementation('com.dlsc.formsfx:formsfx-core:11.6.0') {
-    exclude(group: 'org.openjfx')
-  }
-  implementation('net.synedra:validatorfx:0.4.0') {
-    exclude(group: 'org.openjfx')
-  }
-  implementation('org.kordamp.ikonli:ikonli-javafx:12.3.1')
-  implementation('org.kordamp.ikonli:ikonli-fontawesome5-pack:12.3.1')
-  implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.1-Beta")
-  testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
-  testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
+    implementation(project(":img-ai"))
+    implementation(project(":img-core"))
+    implementation('org.controlsfx:controlsfx:11.1.2')
+    implementation('com.dlsc.formsfx:formsfx-core:11.6.0') {
+        exclude(group: 'org.openjfx')
+    }
+    implementation('net.synedra:validatorfx:0.4.0') {
+        exclude(group: 'org.openjfx')
+    }
+    implementation('org.kordamp.ikonli:ikonli-javafx:12.3.1')
+    implementation('org.kordamp.ikonli:ikonli-fontawesome5-pack:12.3.1')
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.1-Beta")
+    implementation("org.apache.commons:commons-lang3:3.14.0")
+    testImplementation("org.junit.jupiter:junit-jupiter-api:${junitVersion}")
+    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:${junitVersion}")
 }
 
 test {
-  useJUnitPlatform()
+    useJUnitPlatform()
 }
 
 jlink {
-  imageZip = project.file("${buildDir}/distributions/ImageTagger-${javafx.platform.classifier}-${version}.zip")
-  options = ['--strip-debug', '--compress', '2', '--no-header-files', '--no-man-pages']
-  launcher {
-    name = 'ImageTagger'
-  }
+    imageZip = project.file("${buildDir}/distributions/ImageTagger-${javafx.platform.classifier}-${version}.zip")
+    options = ['--strip-debug', '--compress', '2', '--no-header-files', '--no-man-pages']
+    launcher {
+        name = 'ImageTagger'
+    }
 }
 
 jlinkZip {
-  group = 'distribution'
+    group = 'distribution'
 }

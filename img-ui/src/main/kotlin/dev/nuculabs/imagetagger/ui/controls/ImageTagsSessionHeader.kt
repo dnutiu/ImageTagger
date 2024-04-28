@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader
 import javafx.scene.control.Button
 import javafx.scene.control.Label
 import javafx.scene.layout.HBox
+import org.apache.commons.lang3.SystemUtils
 import java.awt.Desktop
 import java.io.File
 import java.io.IOException
@@ -71,18 +72,22 @@ class ImageTagsSessionHeader : HBox() {
      * Opens the directory in the user's Desktop.
      */
     fun openDirectory() {
-        this.directoryPath?.let {
-            if (Desktop.isDesktopSupported()) {
-                val desktop = Desktop.getDesktop()
-                if (desktop.isSupported(Desktop.Action.OPEN)) {
-                    desktop.open(File(it))
+        directoryPath?.let {
+            if (SystemUtils.IS_OS_LINUX) {
+                Runtime.getRuntime().exec("xdg-open $directoryPath")
+            } else {
+                if (Desktop.isDesktopSupported()) {
+                    val desktop = Desktop.getDesktop()
+                    if (desktop.isSupported(Desktop.Action.OPEN)) {
+                        desktop.open(File(it))
+                    } else {
+                        logger.severe("Cannot open image directory $it. Desktop action not supported!")
+                        ErrorAlert("Can't open file: $it\nOperation is not supported!")
+                    }
                 } else {
                     logger.severe("Cannot open image directory $it. Desktop action not supported!")
                     ErrorAlert("Can't open file: $it\nOperation is not supported!")
                 }
-            } else {
-                logger.severe("Cannot open image directory $it. Desktop action not supported!")
-                ErrorAlert("Can't open file: $it\nOperation is not supported!")
             }
         }
     }

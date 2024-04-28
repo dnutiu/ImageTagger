@@ -2,6 +2,7 @@ package dev.nuculabs.imagetagger.ui.controls
 
 import dev.nuculabs.imagetagger.core.AnalyzedImage
 import dev.nuculabs.imagetagger.ui.alerts.ErrorAlert
+import org.apache.commons.lang3.SystemUtils;
 import javafx.fxml.FXML
 import javafx.fxml.FXMLLoader
 import javafx.scene.control.Button
@@ -121,14 +122,21 @@ class ImageTagsEntryControl(private val image: AnalyzedImage) : HBox() {
      * If the operation fails it will display an error alert.
      */
     fun onOpenImageClick() {
-        if (Desktop.isDesktopSupported()) {
-            val desktop = Desktop.getDesktop()
-            if (desktop.isSupported(Desktop.Action.OPEN)) {
-                desktop.open(File(image.absolutePath()))
-            }
+        if (image.hasError()) {
+            return
+        }
+        if (SystemUtils.IS_OS_LINUX) {
+            Runtime.getRuntime().exec("xdg-open ${image.absolutePath()}")
         } else {
-            logger.severe("Cannot open image ${image.absolutePath()}. Desktop action not supported!")
-            ErrorAlert("Can't open file: ${image.absolutePath()}\nOperation is not supported!")
+            if (Desktop.isDesktopSupported()) {
+                val desktop = Desktop.getDesktop()
+                if (desktop.isSupported(Desktop.Action.OPEN)) {
+                    desktop.open(File(image.absolutePath()))
+                }
+            } else {
+                logger.severe("Cannot open image ${image.absolutePath()}. Desktop action not supported!")
+                ErrorAlert("Can't open file: ${image.absolutePath()}\nOperation is not supported!")
+            }
         }
     }
 

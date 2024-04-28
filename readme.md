@@ -1,6 +1,7 @@
-# ![](./docs/image-analysis.png) Image Tagger 
+# ![](./docs/image-analysis.png) Image Tagger
 
-Image Tagger is a simple software application for predicting an image's keywords using a deep learning model based on resnet.
+Image Tagger is a simple software application for predicting an image's keywords using a deep learning model based on
+resnet.
 
 It allows photographers to automate the image tagging process. 📸
 
@@ -10,7 +11,7 @@ It allows photographers to automate the image tagging process. 📸
 
 1. Download a release from the release page.
 2. Unzip the release.
-3. Run `ImageTagger\image\bin\ImageTagger`. 
+3. Run `ImageTagger\image\bin\ImageTagger`.
 
 ![./docs/application.png](./docs/application.png)
 
@@ -18,21 +19,20 @@ Photo credit: [https://unsplash.com/@ndcphoto](https://unsplash.com/@ndcphoto)
 
 ## Development
 
-If you want to build the application yourself, you will need Java 17 JDK and the 
+If you want to build the application yourself, you will need Java 17 JDK and the
 AI models available in the AIModels release.
 
 The release archive is in the [releases page](https://github.com/dnutiu/ImageTagger/releases).
 
-Note: Some desktop related features do not work under Linux. I have tested them on Fedora 39.
-Contributions are welcome :-)
-
+Note: On Linux desktop related features (opening images, folders) are handled
+via [xdg-open](https://linux.die.net/man/1/xdg-open).
 
 ### Building and Running from source
 
 To build from source you will need Java 17 JDK and Gradle.
 
 Due to some GitHub limitations that do not allow me to upload large files, you'll need to download the AIModels
-zip file which contains the deep learning models and place them into the 
+zip file which contains the deep learning models and place them into the
 `ImageTagger/img-ai/src/main/resources/dev/nuculabs/imagetagger/ai/` path.
 
 To build the project run:
@@ -53,4 +53,5 @@ You can visit my tech blog at [https://blog.nuculabs.dev](https://blog.nuculabs.
 
 # Credits
 
-- Icons: <a href="https://www.flaticon.com/free-icons/image-analysis" title="image analysis icons">Image analysis icons created by Dewi Sari - Flaticon</a>
+- Icons: <a href="https://www.flaticon.com/free-icons/image-analysis" title="image analysis icons">Image analysis icons
+  created by Dewi Sari - Flaticon</a>

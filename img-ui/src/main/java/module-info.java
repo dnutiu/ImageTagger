@@ -15,6 +15,7 @@ module dev.nuculabs.imagetagger.ui {
     requires kotlinx.coroutines.core;
     requires dev.nuculabs.imagetagger.ai;
     requires dev.nuculabs.imagetagger.core;
+    requires org.apache.commons.lang3;
 
     opens dev.nuculabs.imagetagger.ui to javafx.fxml, javafx.graphics;
     opens dev.nuculabs.imagetagger.ui.controls to javafx.fxml, javafx.graphics;
