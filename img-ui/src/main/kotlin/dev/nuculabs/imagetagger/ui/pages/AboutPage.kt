@@ -7,6 +7,7 @@ import javafx.scene.Parent
 import javafx.scene.Scene
 import javafx.scene.control.Button
 import javafx.stage.Stage
+import org.apache.commons.lang3.SystemUtils
 import java.awt.Desktop
 import java.net.URL
 
@@ -16,12 +17,21 @@ class AboutPage {
 
     @FXML
     fun openBlog() {
-        Desktop.getDesktop().browse(URL("https://blog.nuculabs.dev").toURI())
+        if (SystemUtils.IS_OS_LINUX) {
+            Runtime.getRuntime().exec("xdg-open https://blog.nuculabs.dev")
+        } else {
+            Desktop.getDesktop().browse(URL("https://blog.nuculabs.dev").toURI())
+        }
+
     }
 
     @FXML
     fun openGithub() {
-        Desktop.getDesktop().browse(URL("https://github.com/dnutiu/ImageTagger").toURI())
+        if (SystemUtils.IS_OS_LINUX) {
+            Runtime.getRuntime().exec("xdg-open https://github.com/dnutiu/ImageTagger")
+        } else {
+            Desktop.getDesktop().browse(URL("https://github.com/dnutiu/ImageTagger").toURI())
+        }
     }
 
     @FXML
