@@ -38,13 +38,23 @@ zip file which contains the deep learning models and place them into the
 To build the project run:
 
 ```bash
-gradle build
+gradlew build
 ```
 
 To run:
 
 ```bash
-gradle run
+gradlew run
+```
+
+### Building the FlatPak
+
+To build the Flatpak run the following commands:
+
+```shell
+gradlew jlinkZip
+cd flatpak
+flatpak-builder --sandbox --user --install --force-clean build-dir dev.nuculabs.ImageTagger.yaml
 ```
 
 # Blog
