@@ -22,7 +22,6 @@ class AboutPage {
         } else {
             Desktop.getDesktop().browse(URL("https://blog.nuculabs.dev").toURI())
         }
-
     }
 
     @FXML
