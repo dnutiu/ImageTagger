@@ -19,7 +19,7 @@
                 <padding>
                     <Insets bottom="5" left="5" right="5"/>
                 </padding>
-                <Button onAction="#onTagImagesButtonClick" text="Tag Images">
+                <Button fx:id="tagImagesButton" onAction="#onTagImagesButtonClick" text="Tag Images">
                     <graphic>
                         <FontIcon iconLiteral="far-images" iconSize="16"/>
                     </graphic>

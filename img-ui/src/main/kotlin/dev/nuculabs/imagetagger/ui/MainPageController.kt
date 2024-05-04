@@ -67,6 +67,9 @@ class MainPageController {
     @FXML
     private lateinit var cancelButton: Button
 
+    @FXML
+    lateinit var tagImagesButton: Button
+
     /**
      * Initializes the controller. Needs to be called after the dependencies have been injected.
      */
@@ -83,7 +86,10 @@ class MainPageController {
         synchronized(this) {
             val fileChooser = FileChooser().apply { title = "Choose images" }
             val filePaths = fileChooser.showOpenMultipleDialog(null) ?: return
-
+            if (tagImagesButton.isDisable) {
+                return
+            }
+            tagImagesButton.isDisable = true
             isCurrentTagsOperationCancelled = false
             progressBar.isVisible = true
             cancelButton.isVisible = true
@@ -167,6 +173,7 @@ class MainPageController {
             if (processedImageFilesCount.get() == imageFilesTotal) {
                 progressBar.isVisible = false
                 cancelButton.isVisible = false
+                tagImagesButton.isDisable = false
                 logger.info("Finished processing images.")
             }
         }
