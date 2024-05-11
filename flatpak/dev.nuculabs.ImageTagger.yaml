@@ -23,7 +23,6 @@ modules:
       - cp -R conf /app/bin/image/
       - cp -R legal /app/bin/image/
       - cp -R release /app/bin/image/
-      - chmod +x -R /app/bin/image/lib/ # make libs executable so xdg-open will work
       # Desktop Integration
       - mkdir -p bin /app/share/{applications,icons/hicolor/64x64/apps,metainfo}
       - mv ${FLATPAK_ID}.desktop      /app/share/applications/${FLATPAK_ID}.desktop
