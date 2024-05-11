@@ -1,4 +1,3 @@
-
 plugins {
     id("java")
     id("application")
@@ -57,9 +56,11 @@ tasks.test {
 }
 
 jlink {
-    imageZip = project.file("${layout.buildDirectory}/distributions/ImageTagger-${javafx.platform.classifier}.zip")
+    val buildDirectory = layout.buildDirectory.asFile.get().absolutePath
+    imageZip = project.file("$buildDirectory/distributions/ImageTagger-${javafx.platform.classifier}.zip")
     options = listOf("--strip-debug", "--compress", "2", "--no-header-files", "--no-man-pages")
     launcher {
+        unixScriptTemplate = project.file("${layout.projectDirectory}/src/main/resources/unixExecutableScriptTemplate.txt")
         name = "ImageTagger"
     }
 }
