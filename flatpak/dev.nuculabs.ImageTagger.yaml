@@ -24,7 +24,7 @@ modules:
       - cp -R legal /app/bin/image/
       - cp -R release /app/bin/image/
       # Desktop Integration
-      - mkdir -p bin /app/share/{applications,icons/hicolor/64x64/apps,metainfo}
+      - mkdir -p bin /app/share/{applications,icons/hicolor/512x512/apps,metainfo}
       - mv ${FLATPAK_ID}.desktop      /app/share/applications/${FLATPAK_ID}.desktop
       - mv ${FLATPAK_ID}.png          /app/share/icons/hicolor/64x64/apps/${FLATPAK_ID}.png
     sources:

@@ -25,6 +25,8 @@
                     <Image
                             url="@../image-analysis.png"
                             backgroundLoading="true"
+                            requestedWidth="64"
+                            requestedHeight="64"
                     />
                 </ImageView>
             </HBox>
