@@ -24,9 +24,11 @@ modules:
       - cp -R legal /app/bin/image/
       - cp -R release /app/bin/image/
       # Desktop Integration
+      - chmod +x /app/bin/image/lib/jexec
+      - chmod +x /app/bin/image/lib/jspawnhelper
       - mkdir -p bin /app/share/{applications,icons/hicolor/512x512/apps,metainfo}
       - mv ${FLATPAK_ID}.desktop      /app/share/applications/${FLATPAK_ID}.desktop
-      - mv ${FLATPAK_ID}.png          /app/share/icons/hicolor/64x64/apps/${FLATPAK_ID}.png
+      - mv ${FLATPAK_ID}.png          /app/share/icons/hicolor/512x512/apps/${FLATPAK_ID}.png
     sources:
       - type: archive
         path: ../img-ui/build/distributions/ImageTagger-linux.zip

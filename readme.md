@@ -17,6 +17,8 @@ It allows photographers to automate the image tagging process. 📸
 
 Photo credit: [https://unsplash.com/@ndcphoto](https://unsplash.com/@ndcphoto)
 
+Alternatively see [Flatpak](./flatpak/readme.md) installation instructions.
+
 ## Development
 
 If you want to build the application yourself, you will need Java 17 JDK and the
