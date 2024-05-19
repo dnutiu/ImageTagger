@@ -17,6 +17,7 @@ import javafx.scene.layout.HBox
 import java.awt.Desktop
 import java.io.File
 import java.io.IOException
+import java.io.InputStreamReader
 import java.util.logging.Logger
 
 
@@ -126,7 +127,8 @@ class ImageTagsEntryControl(private val image: AnalyzedImage) : HBox() {
             return
         }
         if (SystemUtils.IS_OS_LINUX) {
-            Runtime.getRuntime().exec("xdg-open ${image.absolutePath()}")
+            val status = Runtime.getRuntime().exec(arrayOf("xdg-open", image.absolutePath()))
+            logger.fine(InputStreamReader(status.errorStream).readText())
         } else {
             if (Desktop.isDesktopSupported()) {
                 val desktop = Desktop.getDesktop()
