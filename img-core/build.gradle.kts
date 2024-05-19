@@ -13,6 +13,7 @@ repositories {
 
 dependencies {
     testImplementation(kotlin("test"))
+    implementation("com.drewnoakes:metadata-extractor:2.19.0")
 }
 
 tasks.test {
