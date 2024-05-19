@@ -1,7 +1,5 @@
 package dev.nuculabs.imagetagger.core
 
-import com.drew.imaging.ImageMetadataReader
-import com.drew.metadata.Metadata
 import dev.nuculabs.imagetagger.core.abstractions.IImageTagsPrediction
 import java.awt.image.BufferedImage
 import java.io.File
@@ -15,10 +13,10 @@ import javax.imageio.ImageIO
 class AnalyzedImage(private val file: File, imageTagsPrediction: IImageTagsPrediction) {
 
     private var imageFile: File = file
-    private var imageMetadata: Metadata? = null
     private var bufferedImage: BufferedImage? = null
     private var predictedTags: List<String> = emptyList()
     private val logger: Logger = Logger.getLogger("AnalyzedImage")
+    private lateinit var imageMetadata: IImageMetadata
     private var error: String = ""
     private var hasError: Boolean = false
 
@@ -30,6 +28,7 @@ class AnalyzedImage(private val file: File, imageTagsPrediction: IImageTagsPredi
             imageFile = File(file.absolutePath)
             bufferedImage = ImageIO.read(imageFile)
             predictedTags = imageTagsPrediction.predictTags(bufferedImage!!)
+            imageMetadata = ImageMetadata(imageFile)
         } catch (e: NullPointerException) {
             val message = "Error while predicting image: invalid image type or type not supported."
             logger.warning(message)
@@ -46,13 +45,8 @@ class AnalyzedImage(private val file: File, imageTagsPrediction: IImageTagsPredi
     /**
      * Returns an image's metadata
      */
-    fun metadata(): ImageMetadata {
-        synchronized(this) {
-            if (imageMetadata == null) {
-                imageMetadata = ImageMetadataReader.readMetadata(imageFile)
-            }
-            return ImageMetadata(imageMetadata)
-        }
+    fun metadata(): IImageMetadata {
+        return imageMetadata
     }
 
     /**
