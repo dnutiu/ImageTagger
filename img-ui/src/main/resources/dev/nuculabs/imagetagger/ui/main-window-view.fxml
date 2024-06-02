@@ -6,8 +6,7 @@
 
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 <?import dev.nuculabs.imagetagger.ui.controls.ApplicationMenuBar?>
-<BorderPane prefHeight="537.0" prefWidth="725.0"
-            xmlns:fx="http://javafx.com/fxml/1"
+<BorderPane xmlns:fx="http://javafx.com/fxml/1"
             xmlns="http://javafx.com/javafx/17.0.2-ea"
             fx:controller="dev.nuculabs.imagetagger.ui.MainPageController"
             stylesheets="@main-window-view.css"

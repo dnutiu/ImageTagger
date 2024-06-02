@@ -20,16 +20,16 @@
                 <Label text="Predicted tags:"/>
                 <TextArea fx:id="predictedImageTags" editable="false" wrapText="true" prefColumnCount="20"/>
             </VBox>
-            <VBox>
+            <VBox fx:id="metadataVbox">
                 <padding>
                     <Insets left="10.0" top="35.0"/>
                 </padding>
-                <Label text="Author: " />
-                <Label text="Camera:" />
-                <Label text="Lens:" />
-                <Label text="ISO:" />
-                <Label text="Aperture" />
-                <Label text="Shutter Speed" />
+                <Label fx:id="metadataAuthor" text="Author: " />
+                <Label fx:id="metadataCamera" text="Camera:" />
+                <Label fx:id="metadataLens" text="Lens:" />
+                <Label fx:id="metadataISO" text="ISO:" />
+                <Label fx:id="metadataAperture" text="Aperture" />
+                <Label fx:id="metadataShutterSpeed" text="Shutter Speed" />
             </VBox>
         </HBox>
         <HBox>
