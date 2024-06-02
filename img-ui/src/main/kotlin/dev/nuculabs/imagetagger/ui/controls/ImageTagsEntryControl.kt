@@ -2,7 +2,7 @@ package dev.nuculabs.imagetagger.ui.controls
 
 import dev.nuculabs.imagetagger.core.AnalyzedImage
 import dev.nuculabs.imagetagger.ui.alerts.ErrorAlert
-import org.apache.commons.lang3.SystemUtils;
+import org.apache.commons.lang3.SystemUtils
 import javafx.fxml.FXML
 import javafx.fxml.FXMLLoader
 import javafx.scene.control.Button
@@ -14,6 +14,7 @@ import javafx.scene.input.Clipboard
 import javafx.scene.input.ClipboardContent
 import javafx.scene.input.MouseEvent
 import javafx.scene.layout.HBox
+import javafx.scene.layout.VBox
 import java.awt.Desktop
 import java.io.File
 import java.io.IOException
@@ -51,6 +52,30 @@ class ImageTagsEntryControl(private val image: AnalyzedImage) : HBox() {
     @FXML
     private lateinit var copyTagsButton: Button
 
+    /**
+     * Metadata related UI fields.
+     */
+    @FXML
+    private lateinit var metadataVbox: VBox
+
+    @FXML
+    private lateinit var metadataAuthor: Label
+
+    @FXML
+    private lateinit var metadataCamera: Label
+
+    @FXML
+    private lateinit var metadataLens: Label
+
+    @FXML
+    private lateinit var metadataISO: Label
+
+    @FXML
+    private lateinit var metadataAperture: Label
+
+    @FXML
+    private lateinit var metadataShutterSpeed: Label
+
     init {
         val resource = ImageTagsEntryControl::class.java.getResource("image-tags-entry.fxml")
         logger.fine("Using resource URL: $resource")
@@ -65,8 +90,10 @@ class ImageTagsEntryControl(private val image: AnalyzedImage) : HBox() {
         setImage(image)
         if (image.hasError()) {
             setText(listOf(image.errorMessage()))
+            metadataVbox.isVisible = false
         } else {
             setText(image.tags())
+            setMetadata()
         }
 
 
@@ -98,6 +125,20 @@ class ImageTagsEntryControl(private val image: AnalyzedImage) : HBox() {
     private fun setText(predictions: List<String>) {
         predictedImageTags.text = predictions.joinToString { it }
     }
+
+    /**
+     * Sets and displays the image metadata.
+     */
+    private fun setMetadata() {
+        val imageMetadata = image.metadata()
+        metadataAuthor.text = "Author: ${imageMetadata.artist}"
+        metadataCamera.text = "Camera: ${imageMetadata.cameraBrand} ${imageMetadata.cameraModel}"
+        metadataLens.text = "Lens: ${imageMetadata.lensModel}"
+        metadataISO.text = "ISO: ${imageMetadata.iso}"
+        metadataAperture.text = "Aperture: ${imageMetadata.aperture}"
+        metadataShutterSpeed.text = "Shutter Speed: ${imageMetadata.shutterSpeed}"
+    }
+
 
     /**
      * Setter for setting the image.

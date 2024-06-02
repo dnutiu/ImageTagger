@@ -32,7 +32,7 @@ class MainPage : Application() {
         setUpApplicationIcon()
 
         // Load the FXML.
-        val scene = Scene(fxmlLoader.load(), 640.0, 760.0)
+        val scene = Scene(fxmlLoader.load(), 740.0, 760.0)
 
         // Initialize the controller.
         val mainPageController = fxmlLoader.getController<MainPageController>()
