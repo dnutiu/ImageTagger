@@ -17,7 +17,7 @@
         <HBox>
             <VBox>
                 <Label fx:id="fileNameLabel"/>
-                <Label text="Predicted tags:"/>
+                <Label text="Tags:"/>
                 <TextArea fx:id="predictedImageTags" editable="false" wrapText="true" prefColumnCount="20"/>
             </VBox>
             <VBox fx:id="metadataVbox">
