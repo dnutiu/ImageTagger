@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "dev.nuculabs.imagetagger.core"
-version = "1.1"
+version = "1.4"
 
 repositories {
     mavenCentral()

@@ -7,7 +7,7 @@ plugins {
 
 var junitVersion = "5.10.0"
 group = "dev.nuculabs.imagetagger.ai"
-version = "1.1"
+version = "1.4"
 
 repositories {
     mavenCentral()
