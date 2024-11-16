@@ -89,10 +89,10 @@ class ImageTagsEntryControl(private val image: AnalyzedImage) : HBox() {
         }
         setImage(image)
         if (image.hasError()) {
-            setText(listOf(image.errorMessage()))
+            setTags(listOf(image.errorMessage()))
             metadataVbox.isVisible = false
         } else {
-            setText(image.tags())
+            setTags(image.tags())
             setMetadata()
         }
 
@@ -122,7 +122,7 @@ class ImageTagsEntryControl(private val image: AnalyzedImage) : HBox() {
      *
      * @param predictions The prediction list.
      */
-    private fun setText(predictions: List<String>) {
+    private fun setTags(predictions: List<String>) {
         predictedImageTags.text = predictions.joinToString { it }
     }
 

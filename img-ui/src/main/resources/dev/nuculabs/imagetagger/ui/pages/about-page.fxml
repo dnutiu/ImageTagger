@@ -12,7 +12,7 @@
             fx:controller="dev.nuculabs.imagetagger.ui.pages.AboutPage"
             stylesheets="@about-page.css"
 >
-    <VBox prefHeight="250.0" maxWidth="350" spacing="10">
+    <VBox prefHeight="350.0" maxWidth="350" spacing="10">
         <padding>
             <Insets top="25" bottom="25" right="15" left="15"/>
         </padding>
