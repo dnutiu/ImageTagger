@@ -1,6 +1,6 @@
 plugins {
     id("java")
-    kotlin("jvm") version "1.8.22"
+    kotlin("jvm") version "1.9.25"
     id("org.javamodularity.moduleplugin") version "1.8.12"
 
 }
