@@ -41,6 +41,16 @@ class ImageTagsEntryControl(private val image: AnalyzedImage) : HBox() {
     private lateinit var predictedImageTags: TextArea
 
     /**
+     * Holds the tags.
+     */
+    private var tags: List<String> = ArrayList();
+
+    /**
+     * Sets the default image tags display mode.
+     */
+    private var tagsDisplayMode: ImageTagsDisplayMode = ImageTagsDisplayMode.CommaSeparated
+
+    /**
      * The file name label.
      */
     @FXML
@@ -122,8 +132,35 @@ class ImageTagsEntryControl(private val image: AnalyzedImage) : HBox() {
      *
      * @param predictions The prediction list.
      */
-    private fun setTags(predictions: List<String>) {
-        predictedImageTags.text = predictions.joinToString { it }
+    fun setTags(predictions: List<String>) {
+        tags = predictions
+        updateTags()
+    }
+
+    /**
+     * Sets the tags display mode.
+     *
+     * @param mode The image tags display mode.
+     */
+    fun setTagsDisplayMode(mode: ImageTagsDisplayMode) {
+        tagsDisplayMode = mode
+        updateTags()
+    }
+
+    /**
+     * Updates the tags text.
+     */
+    private fun updateTags() {
+        predictedImageTags.text = when (tagsDisplayMode) {
+            ImageTagsDisplayMode.CommaSeparated -> {
+                tags.joinToString { it }
+            }
+            ImageTagsDisplayMode.HashTags -> {
+                tags.joinToString(separator = " ") {
+                    "#${it}"
+                }
+            }
+        }
     }
 
     /**

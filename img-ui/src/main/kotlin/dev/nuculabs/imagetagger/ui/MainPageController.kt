@@ -1,6 +1,7 @@
 package dev.nuculabs.imagetagger.ui
 
 import dev.nuculabs.imagetagger.core.AnalyzedImage
+import dev.nuculabs.imagetagger.ui.controls.ImageTagsDisplayMode
 import dev.nuculabs.imagetagger.ui.controls.ImageTagsEntryControl
 import dev.nuculabs.imagetagger.ui.controls.ImageTagsSessionHeader
 import javafx.application.Platform
@@ -57,6 +58,8 @@ class MainPageController {
      * When a new operation is started, the boolean is reset to false.
      */
     private var isCurrentTagsOperationCancelled: Boolean = false
+
+    private var predictedImages: MutableList<ImageTagsEntryControl> = ArrayList()
 
     @FXML
     private lateinit var progressBar: ProgressBar
@@ -148,7 +151,11 @@ class MainPageController {
     fun addNewImagePredictionEntry(
         analyzedImage: AnalyzedImage,
     ) {
-        verticalBox.children.add(ImageTagsEntryControl(analyzedImage))
+        val control = ImageTagsEntryControl(analyzedImage)
+        // TODO add default tag mode
+        control.setTagsDisplayMode(ImageTagsDisplayMode.CommaSeparated)
+        verticalBox.children.add(control)
+        predictedImages.add(control)
         verticalBox.children.add(Separator())
     }
 
