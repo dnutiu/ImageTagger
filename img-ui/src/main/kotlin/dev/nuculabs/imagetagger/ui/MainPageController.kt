@@ -69,7 +69,7 @@ class MainPageController {
     /**
      * Controls how image tags are displayed on the screen.
      */
-    private var tagsDisplayMode: ImageTagsDisplayMode = ImageTagsDisplayMode.CommaSeparated
+    private var tagsDisplayMode: ImageTagsDisplayMode = ImageTagsDisplayMode.Comma
 
     @FXML
     private lateinit var progressBar: ProgressBar
@@ -102,10 +102,9 @@ class MainPageController {
     private fun initializeTagsDisplayMode() {
         // Tags display mode
         tagsDisplayModeSelection.items = FXCollections.observableArrayList(
-            ImageTagsDisplayMode.CommaSeparated.toString(),
-            ImageTagsDisplayMode.HashTags.toString()
+            ImageTagsDisplayMode.entries.map { it.toString() }
         )
-        tagsDisplayModeSelection.value = ImageTagsDisplayMode.CommaSeparated.toString()
+        tagsDisplayModeSelection.value = ImageTagsDisplayMode.default().toString()
 
         tagsDisplayModeSelection.selectionModel.selectedItemProperty().addListener { _, oldValue, newValue ->
             if (oldValue != newValue && newValue != null) {

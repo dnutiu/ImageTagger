@@ -48,7 +48,7 @@ class ImageTagsEntryControl(private val image: AnalyzedImage) : HBox() {
     /**
      * Sets the default image tags display mode.
      */
-    private var tagsDisplayMode: ImageTagsDisplayMode = ImageTagsDisplayMode.CommaSeparated
+    private var tagsDisplayMode: ImageTagsDisplayMode = ImageTagsDisplayMode.Comma
 
     /**
      * The file name label.
@@ -152,13 +152,16 @@ class ImageTagsEntryControl(private val image: AnalyzedImage) : HBox() {
      */
     private fun updateTags() {
         predictedImageTags.text = when (tagsDisplayMode) {
-            ImageTagsDisplayMode.CommaSeparated -> {
+            ImageTagsDisplayMode.Comma -> {
                 tags.joinToString { it }
             }
             ImageTagsDisplayMode.HashTags -> {
                 tags.joinToString(separator = " ") {
                     "#${it}"
                 }
+            }
+            ImageTagsDisplayMode.Space -> {
+                tags.joinToString(separator = " ") { it }
             }
         }
     }
