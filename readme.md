@@ -49,15 +49,16 @@ To run:
 gradlew run
 ```
 
-### Building the FlatPak
+### Building the Flatpak
 
 To build the Flatpak run the following commands:
 
 ```shell
-gradlew jlinkZip
 cd flatpak
-flatpak-builder --sandbox --user --install --force-clean build-dir dev.nuculabs.ImageTagger.yaml
+./build.sh
 ```
+
+It will build the flatpak using the latest sources from this repo.
 
 ### Building a package (Fedora Example)
 

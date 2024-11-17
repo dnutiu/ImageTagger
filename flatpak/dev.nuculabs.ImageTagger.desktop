@@ -1,6 +1,6 @@
 [Desktop Entry]
 Name=ImageTagger
-Exec=/app/bin/image/bin/ImageTagger
+Exec=/app/bin/ImageTagger/bin/ImageTagger
 Terminal=false
 Type=Application
 Icon=dev.nuculabs.ImageTagger
