@@ -63,6 +63,9 @@ jlink {
         unixScriptTemplate = project.file("${layout.projectDirectory}/src/main/resources/unixExecutableScriptTemplate.txt")
         name = "ImageTagger"
     }
+    jpackage {
+        icon = "${layout.projectDirectory}/src/main/resources/dev/nuculabs/imagetagger/ui/image-analysis.png"
+    }
 }
 
 tasks.jlinkZip {
