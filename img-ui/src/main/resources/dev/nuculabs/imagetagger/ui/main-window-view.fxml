@@ -14,7 +14,7 @@
     <top>
         <VBox>
             <ApplicationMenuBar/>
-            <HBox alignment="CENTER_LEFT">
+            <HBox alignment="CENTER_LEFT" spacing="10">
                 <padding>
                     <Insets bottom="5" left="5" right="5"/>
                 </padding>
@@ -24,6 +24,12 @@
                     </graphic>
                 </Button>
                 <Separator orientation="VERTICAL" style="-fx-padding: 10px"/>
+                <Region HBox.hgrow="ALWAYS"/>
+                <ChoiceBox fx:id="tagsDisplayModeSelection">
+                    <tooltip>
+                        <Tooltip text="Select how tags are displayed"/>
+                    </tooltip>
+                </ChoiceBox>
             </HBox>
         </VBox>
     </top>

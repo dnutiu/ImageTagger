@@ -5,8 +5,10 @@ import dev.nuculabs.imagetagger.ui.controls.ImageTagsDisplayMode
 import dev.nuculabs.imagetagger.ui.controls.ImageTagsEntryControl
 import dev.nuculabs.imagetagger.ui.controls.ImageTagsSessionHeader
 import javafx.application.Platform
+import javafx.collections.FXCollections
 import javafx.fxml.FXML
 import javafx.scene.control.Button
+import javafx.scene.control.ChoiceBox
 import javafx.scene.control.ProgressBar
 import javafx.scene.control.Separator
 import javafx.scene.layout.HBox
@@ -59,7 +61,15 @@ class MainPageController {
      */
     private var isCurrentTagsOperationCancelled: Boolean = false
 
+    /**
+     * Holds a list of predicted images controls that are rendered in the view.
+     */
     private var predictedImages: MutableList<ImageTagsEntryControl> = ArrayList()
+
+    /**
+     * Controls how image tags are displayed on the screen.
+     */
+    private var tagsDisplayMode: ImageTagsDisplayMode = ImageTagsDisplayMode.CommaSeparated
 
     @FXML
     private lateinit var progressBar: ProgressBar
@@ -71,7 +81,10 @@ class MainPageController {
     private lateinit var cancelButton: Button
 
     @FXML
-    lateinit var tagImagesButton: Button
+    private lateinit var tagImagesButton: Button
+
+    @FXML
+    private lateinit var tagsDisplayModeSelection: ChoiceBox<String>
 
     /**
      * Initializes the controller. Needs to be called after the dependencies have been injected.
@@ -79,6 +92,29 @@ class MainPageController {
     fun initialize() {
         HBox.setHgrow(progressBar, Priority.ALWAYS)
         HBox.setHgrow(cancelButton, Priority.ALWAYS)
+
+        initializeTagsDisplayMode()
+    }
+
+    /**
+     * Initializes the tags display mode.
+     */
+    private fun initializeTagsDisplayMode() {
+        // Tags display mode
+        tagsDisplayModeSelection.items = FXCollections.observableArrayList(
+            ImageTagsDisplayMode.CommaSeparated.toString(),
+            ImageTagsDisplayMode.HashTags.toString()
+        )
+        tagsDisplayModeSelection.value = ImageTagsDisplayMode.CommaSeparated.toString()
+
+        tagsDisplayModeSelection.selectionModel.selectedItemProperty().addListener { _, oldValue, newValue ->
+            if (oldValue != newValue && newValue != null) {
+                tagsDisplayMode = ImageTagsDisplayMode.fromString(newValue)
+                predictedImages.forEach {
+                    it.setTagsDisplayMode(tagsDisplayMode)
+                }
+            }
+        }
     }
 
     /**
@@ -152,8 +188,7 @@ class MainPageController {
         analyzedImage: AnalyzedImage,
     ) {
         val control = ImageTagsEntryControl(analyzedImage)
-        // TODO add default tag mode
-        control.setTagsDisplayMode(ImageTagsDisplayMode.CommaSeparated)
+        control.setTagsDisplayMode(tagsDisplayMode)
         verticalBox.children.add(control)
         predictedImages.add(control)
         verticalBox.children.add(Separator())
