@@ -59,6 +59,21 @@ cd flatpak
 flatpak-builder --sandbox --user --install --force-clean build-dir dev.nuculabs.ImageTagger.yaml
 ```
 
+### Building a package (Fedora Example)
+
+To build a package run
+
+```shell
+gradle jpackage <<< "--type rpm"
+```
+
+To install and run the application:
+
+```shell
+dnf install ./img-ui/build/jpackage/imagetagger-1.0-1.x86_64.rpm
+/opt/imagetagger/bin/ImageTagger
+```
+
 # Blog
 
 You can visit my tech blog at [https://blog.nuculabs.dev](https://blog.nuculabs.dev).
