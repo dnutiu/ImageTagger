@@ -14,7 +14,7 @@ finish-args:
   # GPU acceleration if needed
   - --device=dri
   # Needs to save files locally
-  - --filesystem=xdg-pictures
+  - --filesystem=home
 modules:
   - name: ImageTagger
     buildsystem: simple
