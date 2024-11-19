@@ -18,7 +18,7 @@ module dev.nuculabs.imagetagger.ui {
     requires org.apache.commons.lang3;
 
     opens dev.nuculabs.imagetagger.ui to javafx.fxml, javafx.graphics;
-    opens dev.nuculabs.imagetagger.ui.controls to javafx.fxml, javafx.graphics;
+    opens dev.nuculabs.imagetagger.ui.controls to javafx.fxml, javafx.graphics, javafx.base;
     opens dev.nuculabs.imagetagger.ui.pages to javafx.fxml, javafx.graphics;
     exports dev.nuculabs.imagetagger.ui;
 }

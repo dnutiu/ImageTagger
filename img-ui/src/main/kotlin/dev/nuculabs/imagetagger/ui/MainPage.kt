@@ -43,15 +43,12 @@ class MainPage : Application() {
         // Set up the stage.
         stage.title = "Image Tagger"
         stage.scene = scene
-        stage.minWidth = 640.0
+        stage.minWidth = 960.0
         stage.minHeight = 760.0
         // Whe the main window is hidden we exit the application.
         stage.setOnHidden {
             Platform.exit()
         }
-
-        // Add menu bar
-        // (scene.root as BorderPane).children.add(ApplicationMenuBar(mainPageController))
 
         stage.show()
     }

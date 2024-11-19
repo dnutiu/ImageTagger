@@ -2,11 +2,13 @@ package dev.nuculabs.imagetagger.ui.controls
 
 import dev.nuculabs.imagetagger.core.AnalyzedImage
 import dev.nuculabs.imagetagger.ui.alerts.ErrorAlert
-import org.apache.commons.lang3.SystemUtils
+import javafx.collections.FXCollections
+import javafx.collections.ObservableList
 import javafx.fxml.FXML
 import javafx.fxml.FXMLLoader
 import javafx.scene.control.Button
 import javafx.scene.control.Label
+import javafx.scene.control.TableView
 import javafx.scene.control.TextArea
 import javafx.scene.image.Image
 import javafx.scene.image.ImageView
@@ -15,6 +17,7 @@ import javafx.scene.input.ClipboardContent
 import javafx.scene.input.MouseEvent
 import javafx.scene.layout.HBox
 import javafx.scene.layout.VBox
+import org.apache.commons.lang3.SystemUtils
 import java.awt.Desktop
 import java.io.File
 import java.io.IOException
@@ -43,7 +46,7 @@ class ImageTagsEntryControl(private val image: AnalyzedImage) : HBox() {
     /**
      * Holds the tags.
      */
-    private var tags: List<String> = ArrayList();
+    private var tags: List<String> = ArrayList()
 
     /**
      * Sets the default image tags display mode.
@@ -69,22 +72,7 @@ class ImageTagsEntryControl(private val image: AnalyzedImage) : HBox() {
     private lateinit var metadataVbox: VBox
 
     @FXML
-    private lateinit var metadataAuthor: Label
-
-    @FXML
-    private lateinit var metadataCamera: Label
-
-    @FXML
-    private lateinit var metadataLens: Label
-
-    @FXML
-    private lateinit var metadataISO: Label
-
-    @FXML
-    private lateinit var metadataAperture: Label
-
-    @FXML
-    private lateinit var metadataShutterSpeed: Label
+    private lateinit var metadataTableView: TableView<ImageTagsEntryModel>
 
     init {
         val resource = ImageTagsEntryControl::class.java.getResource("image-tags-entry.fxml")
@@ -171,12 +159,24 @@ class ImageTagsEntryControl(private val image: AnalyzedImage) : HBox() {
      */
     private fun setMetadata() {
         val imageMetadata = image.metadata()
-        metadataAuthor.text = "Author: ${imageMetadata.artist}"
-        metadataCamera.text = "Camera: ${imageMetadata.cameraBrand} ${imageMetadata.cameraModel}"
-        metadataLens.text = "Lens: ${imageMetadata.lensModel}"
-        metadataISO.text = "ISO: ${imageMetadata.iso}"
-        metadataAperture.text = "Aperture: ${imageMetadata.aperture}"
-        metadataShutterSpeed.text = "Shutter Speed: ${imageMetadata.shutterSpeed}"
+        val metadataValues = listOf(
+            ImageTagsEntryModel("Author", imageMetadata.artist),
+            ImageTagsEntryModel("Brand", imageMetadata.cameraBrand),
+            ImageTagsEntryModel("Model", imageMetadata.cameraModel),
+            ImageTagsEntryModel("Lens", imageMetadata.lensModel),
+            ImageTagsEntryModel("ISO", imageMetadata.iso),
+            ImageTagsEntryModel("Aperture", imageMetadata.aperture),
+            ImageTagsEntryModel("Shutter Speed", imageMetadata.shutterSpeed),
+        ).filterNot { it.getValue() == "Unknown" }
+        val data: ObservableList<ImageTagsEntryModel> = FXCollections.observableArrayList(
+            metadataValues
+        )
+        if (data.size == 0) {
+            metadataVbox.isVisible = false
+            return
+        }
+        metadataTableView.items = data
+
     }
 
 

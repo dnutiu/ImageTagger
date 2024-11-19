@@ -6,11 +6,13 @@
 
 <?import javafx.scene.image.ImageView?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
-<fx:root type="javafx.scene.layout.HBox" xmlns:fx="http://javafx.com/fxml" stylesheets="@image-tags-entry.css">
-    <StackPane prefWidth="244" prefHeight="244">
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<fx:root type="javafx.scene.layout.HBox" xmlns:fx="http://javafx.com/fxml" stylesheets="@image-tags-entry.css"
+         minHeight="250">
+    <StackPane minWidth="244" prefWidth="244" prefHeight="244">
         <ImageView fx:id="imageView"/>
     </StackPane>
-    <VBox>
+    <VBox minWidth="300" >
         <padding>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
         </padding>
@@ -19,17 +21,6 @@
                 <Label fx:id="fileNameLabel"/>
                 <Label text="Tags:"/>
                 <TextArea fx:id="predictedImageTags" editable="false" wrapText="true" prefColumnCount="20"/>
-            </VBox>
-            <VBox fx:id="metadataVbox">
-                <padding>
-                    <Insets left="10.0" top="35.0"/>
-                </padding>
-                <Label fx:id="metadataAuthor" text="Author: " />
-                <Label fx:id="metadataCamera" text="Camera:" />
-                <Label fx:id="metadataLens" text="Lens:" />
-                <Label fx:id="metadataISO" text="ISO:" />
-                <Label fx:id="metadataAperture" text="Aperture" />
-                <Label fx:id="metadataShutterSpeed" text="Shutter Speed" />
             </VBox>
         </HBox>
         <HBox>
@@ -43,5 +34,20 @@
             </Button>
         </HBox>
     </VBox>
-
+    <VBox fx:id="metadataVbox" VBox.vgrow="ALWAYS">
+        <TableView fx:id="metadataTableView" minWidth="400" maxWidth="Infinity" VBox.vgrow="ALWAYS">
+            <columns>
+                <TableColumn text="Metadata">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="metadata"/>
+                    </cellValueFactory>
+                </TableColumn>
+                <TableColumn text="Value">
+                    <cellValueFactory>
+                        <PropertyValueFactory property="value"/>
+                    </cellValueFactory>
+                </TableColumn>
+            </columns>
+        </TableView>
+    </VBox>
 </fx:root>
