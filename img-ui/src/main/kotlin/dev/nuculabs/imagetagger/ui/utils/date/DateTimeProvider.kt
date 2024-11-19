@@ -9,6 +9,8 @@ interface IDateTimeProvider {
      * Returns today's short date. For example: 09 April 2024
      */
     fun getTodayShortDate(): String
+
+    fun getTodayTime(): String
 }
 
 /**
@@ -21,6 +23,15 @@ class DateTimeProvider : IDateTimeProvider {
      */
     override fun getTodayShortDate(): String {
         val dateFormat: DateFormat = SimpleDateFormat("dd MMMM YYYY", Locale.ENGLISH)
+        val date = Date()
+        return dateFormat.format(date)
+    }
+
+    /**
+     * Returns today's short time. Example: 15:30
+     */
+    override fun getTodayTime(): String {
+        val dateFormat: DateFormat = SimpleDateFormat("HH:mm", Locale.ENGLISH)
         val date = Date()
         return dateFormat.format(date)
     }

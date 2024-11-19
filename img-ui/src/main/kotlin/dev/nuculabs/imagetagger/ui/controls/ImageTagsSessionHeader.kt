@@ -65,7 +65,8 @@ class ImageTagsSessionHeader : HBox() {
 
         // update header title
         val shortDate = dateTimeProvider.getTodayShortDate()
-        this.title.text = "$shortDate ($numberOfImages Images)"
+        val shortTime = dateTimeProvider.getTodayTime()
+        this.title.text = "$shortDate - $shortTime - ($numberOfImages Images)"
     }
 
     /**
