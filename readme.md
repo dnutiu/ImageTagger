@@ -83,3 +83,4 @@ You can visit my tech blog at [https://blog.nuculabs.dev](https://blog.nuculabs.
 
 - Icons: <a href="https://www.flaticon.com/free-icons/image-analysis" title="image analysis icons">Image analysis icons
   created by Dewi Sari - Flaticon</a>
+  
