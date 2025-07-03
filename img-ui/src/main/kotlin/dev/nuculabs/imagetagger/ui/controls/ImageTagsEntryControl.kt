@@ -88,13 +88,12 @@ class ImageTagsEntryControl(private val image: AnalyzedImage) : HBox() {
         setImage(image)
         if (image.hasError()) {
             setTags(listOf(image.errorMessage()))
-            metadataVbox.isVisible = false
         } else {
             setTags(image.tags())
             setMetadata()
         }
 
-
+        metadataTableView.columnResizePolicy = TableView.CONSTRAINED_RESIZE_POLICY_FLEX_LAST_COLUMN
         setupEventHandlers()
     }
 
@@ -172,7 +171,6 @@ class ImageTagsEntryControl(private val image: AnalyzedImage) : HBox() {
             metadataValues
         )
         if (data.size == 0) {
-            metadataVbox.isVisible = false
             return
         }
         metadataTableView.items = data
