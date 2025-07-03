@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.image.ImageView?>
+<?import javafx.geometry.Insets?>
+<fx:root type="javafx.scene.layout.HBox" xmlns:fx="http://javafx.com/fxml">
+    <padding>
+        <Insets left="5" right="5" />
+    </padding>
+    <StackPane minWidth="244" prefWidth="244" prefHeight="244">
+        <ImageView fx:id="imageView"/>
+    </StackPane>
+</fx:root>

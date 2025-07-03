@@ -4,6 +4,7 @@ import dev.nuculabs.imagetagger.core.AnalyzedImage
 import dev.nuculabs.imagetagger.ui.controls.ImageTagsDisplayMode
 import dev.nuculabs.imagetagger.ui.controls.ImageTagsEntryControl
 import dev.nuculabs.imagetagger.ui.controls.ImageTagsSessionHeader
+import dev.nuculabs.imagetagger.ui.controls.ImageThumbnail
 import javafx.application.Platform
 import javafx.collections.FXCollections
 import javafx.fxml.FXML
@@ -13,7 +14,6 @@ import javafx.scene.control.ProgressBar
 import javafx.scene.control.Separator
 import javafx.scene.layout.HBox
 import javafx.scene.layout.Priority
-import javafx.scene.layout.VBox
 import javafx.stage.FileChooser
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
@@ -75,7 +75,7 @@ class MainPageController {
     private lateinit var progressBar: ProgressBar
 
     @FXML
-    private lateinit var verticalBox: VBox
+    private lateinit var bottomHBox: HBox
 
     @FXML
     private lateinit var cancelButton: Button
@@ -138,9 +138,9 @@ class MainPageController {
             Thread {
                 logger.info("Analyzing $imageFilesTotal files")
                 if (filePaths.isNotEmpty()) {
-                    Platform.runLater {
-                        addNewImagePredictionHeader(imageFilesTotal, filePaths.first().parent)
-                    }
+//                    Platform.runLater {
+//                        addNewImagePredictionHeader(imageFilesTotal, filePaths.first().parent)
+//                    }
                 }
                 filePaths.forEach { filePath ->
                     if (isCurrentTagsOperationCancelled) {
@@ -186,21 +186,9 @@ class MainPageController {
     fun addNewImagePredictionEntry(
         analyzedImage: AnalyzedImage,
     ) {
-        val control = ImageTagsEntryControl(analyzedImage)
-        control.setTagsDisplayMode(tagsDisplayMode)
-        verticalBox.children.add(control)
-        predictedImages.add(control)
-        verticalBox.children.add(Separator())
-    }
-
-    /**
-     * Display the image prediction session header on the UI.
-     */
-    fun addNewImagePredictionHeader(totalImages: Int, directoryPath: String) {
-        val imageSessionHeader = ImageTagsSessionHeader()
-        imageSessionHeader.updateHeader(totalImages, directoryPath)
-        verticalBox.children.add(imageSessionHeader)
-        verticalBox.children.add(Separator())
+        // todo: don't add if error. log it
+        val control = ImageThumbnail(analyzedImage)
+        bottomHBox.children.add(control)
     }
 
     /**

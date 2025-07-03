@@ -45,6 +45,7 @@ class MainPage : Application() {
         stage.scene = scene
         stage.minWidth = 960.0
         stage.minHeight = 760.0
+        stage.isMaximized = true
         // Whe the main window is hidden we exit the application.
         stage.setOnHidden {
             Platform.exit()

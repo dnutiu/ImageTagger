@@ -34,13 +34,23 @@
         </VBox>
     </top>
     <center>
-        <ScrollPane fitToWidth="true" fitToHeight="true">
-            <VBox fx:id="verticalBox" HBox.hgrow="ALWAYS">
-                <padding>
-                    <Insets left="10" right="10"/>
-                </padding>
-            </VBox>
-        </ScrollPane>
+        <SplitPane orientation="VERTICAL" dividerPositions="0.9">
+            <SplitPane dividerPositions="0.8">
+                <Pane>
+                    <Label text="Left Pane Content"/>
+                </Pane>
+                <Pane>
+                    <Label text="Right"/>
+                </Pane>
+            </SplitPane>
+            <ScrollPane fitToWidth="true" fitToHeight="true">
+                <HBox fx:id="bottomHBox">
+                    <padding>
+                        <Insets left="5" right="5"/>
+                    </padding>
+                </HBox>
+            </ScrollPane>
+        </SplitPane>
     </center>
 
     <bottom>
