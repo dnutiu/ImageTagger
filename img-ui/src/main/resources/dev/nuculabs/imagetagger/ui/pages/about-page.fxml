@@ -34,7 +34,7 @@
                    text="Image Tagger is an application that predicts an image's tags using deep-learning. It is useful for photographers who want to improve their workflow by auto-tagging images."/>
         </HBox>
         <Label text="Author: Denis-Cosmin Nutiu"/>
-        <Hyperlink text="Website: blog.nuculabs.dev" onAction="#openBlog">
+        <Hyperlink text="Website: forum.nuculabs.de" onAction="#openBlog">
             <graphic>
                 <FontIcon iconLiteral="fas-blog" iconSize="16"/>
             </graphic>
