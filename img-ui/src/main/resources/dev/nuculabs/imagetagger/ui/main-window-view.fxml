@@ -35,7 +35,7 @@
     </top>
     <center>
         <ScrollPane fitToWidth="true" fitToHeight="true">
-            <VBox fx:id="verticalBox">
+            <VBox fx:id="verticalBox" HBox.hgrow="ALWAYS">
                 <padding>
                     <Insets left="10" right="10"/>
                 </padding>

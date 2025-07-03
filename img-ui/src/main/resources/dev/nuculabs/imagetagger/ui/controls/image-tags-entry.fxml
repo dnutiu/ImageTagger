@@ -9,7 +9,10 @@
 <?import javafx.scene.control.cell.PropertyValueFactory?>
 <fx:root type="javafx.scene.layout.HBox" xmlns:fx="http://javafx.com/fxml" stylesheets="@image-tags-entry.css"
          minHeight="250">
-    <VBox fx:id="metadataVbox">
+    <StackPane minWidth="244" prefWidth="244" prefHeight="244" HBox.hgrow="ALWAYS">
+        <ImageView fx:id="imageView"/>
+    </StackPane>
+    <VBox fx:id="metadataVbox" HBox.hgrow="ALWAYS">
         <TableView fx:id="metadataTableView">
             <columns>
                 <TableColumn text="Metadata">
@@ -25,10 +28,7 @@
             </columns>
         </TableView>
     </VBox>
-    <StackPane minWidth="244" prefWidth="244" prefHeight="244">
-        <ImageView fx:id="imageView"/>
-    </StackPane>
-    <VBox >
+    <VBox HBox.hgrow="ALWAYS">
         <padding>
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
         </padding>
@@ -38,7 +38,7 @@
             <TextArea fx:id="predictedImageTags" editable="false" wrapText="true" prefColumnCount="20"/>
         </VBox>
     </VBox>
-    <VBox>
+    <VBox HBox.hgrow="ALWAYS">
         <padding>
             <Insets top="35.0"/>
         </padding>

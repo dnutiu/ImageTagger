@@ -72,7 +72,7 @@ class ImageTagsEntryControl(private val image: AnalyzedImage) : HBox() {
     private lateinit var metadataVbox: VBox
 
     @FXML
-    private lateinit var metadataTableView: TableView<ImageTagsEntryModel>
+    private lateinit var metadataTableView: TableView<ImageMetadataPair>
 
     init {
         val resource = ImageTagsEntryControl::class.java.getResource("image-tags-entry.fxml")
@@ -159,15 +159,15 @@ class ImageTagsEntryControl(private val image: AnalyzedImage) : HBox() {
     private fun setMetadata() {
         val imageMetadata = image.metadata()
         val metadataValues = listOf(
-            ImageTagsEntryModel("Author", imageMetadata.artist),
-            ImageTagsEntryModel("Brand", imageMetadata.cameraBrand),
-            ImageTagsEntryModel("Model", imageMetadata.cameraModel),
-            ImageTagsEntryModel("Lens", imageMetadata.lensModel),
-            ImageTagsEntryModel("ISO", imageMetadata.iso),
-            ImageTagsEntryModel("Aperture", imageMetadata.aperture),
-            ImageTagsEntryModel("Shutter Speed", imageMetadata.shutterSpeed),
+            ImageMetadataPair("Author", imageMetadata.artist),
+            ImageMetadataPair("Brand", imageMetadata.cameraBrand),
+            ImageMetadataPair("Model", imageMetadata.cameraModel),
+            ImageMetadataPair("Lens", imageMetadata.lensModel),
+            ImageMetadataPair("ISO", imageMetadata.iso),
+            ImageMetadataPair("Aperture", imageMetadata.aperture),
+            ImageMetadataPair("Shutter Speed", imageMetadata.shutterSpeed),
         ).filterNot { it.getValue() == "Unknown" }
-        val data: ObservableList<ImageTagsEntryModel> = FXCollections.observableArrayList(
+        val data: ObservableList<ImageMetadataPair> = FXCollections.observableArrayList(
             metadataValues
         )
         if (data.size == 0) {

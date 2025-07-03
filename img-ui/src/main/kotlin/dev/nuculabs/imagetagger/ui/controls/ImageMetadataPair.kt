@@ -6,9 +6,9 @@ import javafx.beans.property.SimpleStringProperty
 import javafx.beans.property.StringProperty
 
 /**
- * ImageTagsEntryModel represents a metadata and it's associated value.
+ * ImageMetadataPair represents a metadata and it's associated value.
  */
-class ImageTagsEntryModel(metadata: String, value: String) {
+class ImageMetadataPair(metadata: String, value: String) {
     private val metadata: StringProperty = SimpleStringProperty(metadata)
     private val value: StringProperty = SimpleStringProperty(value)
 
