@@ -1,5 +1,6 @@
 package dev.nuculabs.imagetagger.ui.controls
 
+import dev.nuculabs.imagetagger.catalog.SessionCatalog
 import dev.nuculabs.imagetagger.core.AnalyzedImage
 import javafx.fxml.FXML
 import javafx.fxml.FXMLLoader
@@ -11,7 +12,7 @@ import java.io.File
 import java.io.IOException
 import java.util.logging.Logger
 
-class ImageThumbnail(image: AnalyzedImage) : HBox() {
+class ImageThumbnail(val analyzedImage: AnalyzedImage, private val catalog: SessionCatalog) : HBox() {
     private val logger: Logger = Logger.getLogger("ImageThumbnail")
 
     /**
@@ -31,18 +32,21 @@ class ImageThumbnail(image: AnalyzedImage) : HBox() {
         } catch (exception: IOException) {
             throw RuntimeException(exception)
         }
-        setImage(image)
+        setImage()
         setupImageClickHandler()
     }
 
     /**
      * Setter for setting the image.
      */
-    private fun setImage(analyzedImage: AnalyzedImage) {
+    private fun setImage() {
         val file = File(analyzedImage.absolutePath())
         file.inputStream().use {
             imageView.image = Image(it, 244.0, 244.0, true, true)
             imageView.isCache = true
+        }
+        if (catalog.selectedImage.get() == null) {
+            updateCurrentlySelectedImage()
         }
     }
 
@@ -52,8 +56,19 @@ class ImageThumbnail(image: AnalyzedImage) : HBox() {
      */
     private fun setupImageClickHandler() {
         imageView.addEventHandler(MouseEvent.MOUSE_CLICKED) {
-            // TODO: update currently selected image.
+            updateCurrentlySelectedImage()
             it.consume()
+        }
+    }
+
+    /**
+     * Updates the currently selected image.
+     */
+    private fun updateCurrentlySelectedImage() {
+        val file = File(analyzedImage.absolutePath())
+        file.inputStream().use {
+            val image = Image(it, 1200.0, 800.0, true, true)
+            catalog.selectedImage.set(image)
         }
     }
 }

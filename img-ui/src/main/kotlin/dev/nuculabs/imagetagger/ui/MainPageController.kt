@@ -1,9 +1,9 @@
 package dev.nuculabs.imagetagger.ui
 
+import dev.nuculabs.imagetagger.catalog.SessionCatalog
 import dev.nuculabs.imagetagger.core.AnalyzedImage
 import dev.nuculabs.imagetagger.ui.controls.ImageTagsDisplayMode
 import dev.nuculabs.imagetagger.ui.controls.ImageTagsEntryControl
-import dev.nuculabs.imagetagger.ui.controls.ImageTagsSessionHeader
 import dev.nuculabs.imagetagger.ui.controls.ImageThumbnail
 import javafx.application.Platform
 import javafx.collections.FXCollections
@@ -11,7 +11,7 @@ import javafx.fxml.FXML
 import javafx.scene.control.Button
 import javafx.scene.control.ChoiceBox
 import javafx.scene.control.ProgressBar
-import javafx.scene.control.Separator
+import javafx.scene.image.ImageView
 import javafx.scene.layout.HBox
 import javafx.scene.layout.Priority
 import javafx.stage.FileChooser
@@ -71,6 +71,11 @@ class MainPageController {
      */
     private var tagsDisplayMode: ImageTagsDisplayMode = ImageTagsDisplayMode.Comma
 
+    /**
+     * The session catalog.
+     */
+    private val catalog: SessionCatalog = SessionCatalog()
+
     @FXML
     private lateinit var progressBar: ProgressBar
 
@@ -86,12 +91,17 @@ class MainPageController {
     @FXML
     private lateinit var tagsDisplayModeSelection: ChoiceBox<String>
 
+    @FXML
+    private lateinit var mainImageView: ImageView
+
     /**
      * Initializes the controller. Needs to be called after the dependencies have been injected.
      */
     fun initialize() {
         HBox.setHgrow(progressBar, Priority.ALWAYS)
         HBox.setHgrow(cancelButton, Priority.ALWAYS)
+
+        mainImageView.imageProperty().bind(catalog.selectedImage)
 
         initializeTagsDisplayMode()
     }
@@ -137,11 +147,6 @@ class MainPageController {
             // Create a new thread to predict the image tags.
             Thread {
                 logger.info("Analyzing $imageFilesTotal files")
-                if (filePaths.isNotEmpty()) {
-//                    Platform.runLater {
-//                        addNewImagePredictionHeader(imageFilesTotal, filePaths.first().parent)
-//                    }
-                }
                 filePaths.forEach { filePath ->
                     if (isCurrentTagsOperationCancelled) {
                         logger.info("Cancelling current prediction operation.")
@@ -187,7 +192,7 @@ class MainPageController {
         analyzedImage: AnalyzedImage,
     ) {
         // todo: don't add if error. log it
-        val control = ImageThumbnail(analyzedImage)
+        val control = ImageThumbnail(analyzedImage, catalog)
         bottomHBox.children.add(control)
     }
 

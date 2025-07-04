@@ -6,6 +6,7 @@
 
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 <?import dev.nuculabs.imagetagger.ui.controls.ApplicationMenuBar?>
+<?import javafx.scene.image.ImageView?>
 <BorderPane xmlns:fx="http://javafx.com/fxml/1"
             xmlns="http://javafx.com/javafx/17.0.2-ea"
             fx:controller="dev.nuculabs.imagetagger.ui.MainPageController"
@@ -36,9 +37,11 @@
     <center>
         <SplitPane orientation="VERTICAL" dividerPositions="0.9">
             <SplitPane dividerPositions="0.8">
-                <Pane>
-                    <Label text="Left Pane Content"/>
-                </Pane>
+                <BorderPane>
+                    <center>
+                        <ImageView fx:id="mainImageView"/>
+                    </center>
+                </BorderPane>
                 <Pane>
                     <Label text="Right"/>
                 </Pane>
