@@ -2,6 +2,7 @@ package dev.nuculabs.imagetagger.ui
 
 import dev.nuculabs.imagetagger.catalog.SessionCatalog
 import dev.nuculabs.imagetagger.core.AnalyzedImage
+import dev.nuculabs.imagetagger.ui.controls.ImageMetadataPair
 import dev.nuculabs.imagetagger.ui.controls.ImageTagsDisplayMode
 import dev.nuculabs.imagetagger.ui.controls.ImageTagsEntryControl
 import dev.nuculabs.imagetagger.ui.controls.ImageThumbnail
@@ -11,6 +12,8 @@ import javafx.fxml.FXML
 import javafx.scene.control.Button
 import javafx.scene.control.ChoiceBox
 import javafx.scene.control.ProgressBar
+import javafx.scene.control.TableView
+import javafx.scene.control.TextArea
 import javafx.scene.image.ImageView
 import javafx.scene.layout.HBox
 import javafx.scene.layout.Priority
@@ -94,6 +97,15 @@ class MainPageController {
     @FXML
     private lateinit var mainImageView: ImageView
 
+    @FXML
+    private lateinit var metadataTableView: TableView<ImageMetadataPair>
+
+    /**
+     * The text area for the image prediction entry.
+     */
+    @FXML
+    private lateinit var predictedImageTags: TextArea
+
     /**
      * Initializes the controller. Needs to be called after the dependencies have been injected.
      */
@@ -104,6 +116,12 @@ class MainPageController {
         mainImageView.imageProperty().bind(catalog.selectedImage)
 
         initializeTagsDisplayMode()
+
+        metadataTableView.columnResizePolicy = TableView.CONSTRAINED_RESIZE_POLICY_FLEX_LAST_COLUMN
+        metadataTableView.itemsProperty().bind(catalog.imageMetadataEntries)
+
+        predictedImageTags.textProperty().bind(catalog.imagePredictedTags)
+
     }
 
     /**
@@ -114,8 +132,6 @@ class MainPageController {
         tagsDisplayModeSelection.items = FXCollections.observableArrayList(
             ImageTagsDisplayMode.entries.map { it.toString() }
         )
-        tagsDisplayModeSelection.value = ImageTagsDisplayMode.default().toString()
-
         tagsDisplayModeSelection.selectionModel.selectedItemProperty().addListener { _, oldValue, newValue ->
             if (oldValue != newValue && newValue != null) {
                 tagsDisplayMode = ImageTagsDisplayMode.fromString(newValue)
@@ -124,6 +140,8 @@ class MainPageController {
                 }
             }
         }
+        tagsDisplayModeSelection.valueProperty().bindBidirectional(catalog.tagsDisplayMode)
+        catalog.tagsDisplayMode.set(ImageTagsDisplayMode.default().toString())
     }
 
     /**

@@ -68,6 +68,7 @@ class ImageThumbnail(val analyzedImage: AnalyzedImage, private val catalog: Sess
         val file = File(analyzedImage.absolutePath())
         file.inputStream().use {
             val image = Image(it, 1200.0, 800.0, true, true)
+            catalog.selectedAnalyzedImage.set(analyzedImage)
             catalog.selectedImage.set(image)
         }
     }

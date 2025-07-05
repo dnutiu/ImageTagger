@@ -7,6 +7,7 @@
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 <?import dev.nuculabs.imagetagger.ui.controls.ApplicationMenuBar?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
 <BorderPane xmlns:fx="http://javafx.com/fxml/1"
             xmlns="http://javafx.com/javafx/17.0.2-ea"
             fx:controller="dev.nuculabs.imagetagger.ui.MainPageController"
@@ -42,9 +43,26 @@
                         <ImageView fx:id="mainImageView"/>
                     </center>
                 </BorderPane>
-                <Pane>
-                    <Label text="Right"/>
-                </Pane>
+                <VBox HBox.hgrow="ALWAYS">
+                    <TableView fx:id="metadataTableView">
+                        <columns>
+                            <TableColumn text="Metadata">
+                                <cellValueFactory>
+                                    <PropertyValueFactory property="metadata"/>
+                                </cellValueFactory>
+                            </TableColumn>
+                            <TableColumn text="Value">
+                                <cellValueFactory>
+                                    <PropertyValueFactory property="value"/>
+                                </cellValueFactory>
+                            </TableColumn>
+                        </columns>
+                    </TableView>
+                    <VBox>
+                        <Label text="Tags:"/>
+                        <TextArea fx:id="predictedImageTags" editable="false" wrapText="true" prefColumnCount="20"/>
+                    </VBox>
+                </VBox>
             </SplitPane>
             <ScrollPane fitToWidth="true" fitToHeight="true">
                 <HBox fx:id="bottomHBox">
