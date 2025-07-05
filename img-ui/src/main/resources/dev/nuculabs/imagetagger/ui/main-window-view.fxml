@@ -27,11 +27,6 @@
                 </Button>
                 <Separator orientation="VERTICAL" style="-fx-padding: 10px"/>
                 <Region HBox.hgrow="ALWAYS"/>
-                <ChoiceBox fx:id="tagsDisplayModeSelection">
-                    <tooltip>
-                        <Tooltip text="Select how tags are displayed"/>
-                    </tooltip>
-                </ChoiceBox>
             </HBox>
         </VBox>
     </top>
@@ -59,6 +54,18 @@
                         </columns>
                     </TableView>
                     <VBox>
+                        <HBox>
+                            <padding>
+                                <Insets top="5" bottom="5" right="20"/>
+                            </padding>
+                            <Label text="Tags display mode:"/>
+                            <Region HBox.hgrow="ALWAYS"/>
+                            <ChoiceBox fx:id="tagsDisplayModeSelection">
+                                <tooltip>
+                                    <Tooltip text="Select how tags are displayed"/>
+                                </tooltip>
+                            </ChoiceBox>
+                        </HBox>
                         <Label text="Tags:"/>
                         <TextArea fx:id="predictedImageTags" editable="false" wrapText="true" prefColumnCount="20"/>
                     </VBox>

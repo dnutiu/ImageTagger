@@ -79,24 +79,45 @@ class MainPageController {
      */
     private val catalog: SessionCatalog = SessionCatalog()
 
+    /**
+     * Progress bar that shows the image import progress.
+     */
     @FXML
     private lateinit var progressBar: ProgressBar
 
+    /**
+     * Bottom box, hosts progress bar and actions
+     */
     @FXML
     private lateinit var bottomHBox: HBox
 
+    /**
+     * Cancel import images button.
+     */
     @FXML
     private lateinit var cancelButton: Button
 
+    /**
+     * Tag images button.
+     */
     @FXML
     private lateinit var tagImagesButton: Button
 
+    /**
+     * The tags display mode choice box.
+     */
     @FXML
     private lateinit var tagsDisplayModeSelection: ChoiceBox<String>
 
+    /**
+     * The main image view.
+     */
     @FXML
     private lateinit var mainImageView: ImageView
 
+    /**
+     * The metadata table view.
+     */
     @FXML
     private lateinit var metadataTableView: TableView<ImageMetadataPair>
 

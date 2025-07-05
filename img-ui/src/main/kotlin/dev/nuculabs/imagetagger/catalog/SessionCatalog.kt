@@ -21,18 +21,22 @@ class SessionCatalog {
      * Represents the currently selected image.
      */
     var selectedImage: ObjectProperty<Image> = SimpleObjectProperty();
-    var selectedAnalyzedImage: ObjectProperty<AnalyzedImage> = SimpleObjectProperty();
+    var selectedAnalyzedImage: ObjectProperty<AnalyzedImage?> = SimpleObjectProperty();
     var imageMetadataEntries: ObjectProperty<ObservableList<ImageMetadataPair>> = SimpleObjectProperty()
     var imagePredictedTags: ObjectProperty<String> = SimpleObjectProperty()
     var tagsDisplayMode: ObjectProperty<String> = SimpleObjectProperty()
 
     init {
-        selectedAnalyzedImage.addListener(ChangeListener { _observable: ObservableValue<out AnalyzedImage>, _oldValue: AnalyzedImage?, newValue: AnalyzedImage ->
-            setMetadata(newValue)
-            setPredictedTags()
+        selectedAnalyzedImage.addListener(ChangeListener { _observable: ObservableValue<out AnalyzedImage?>, _oldValue: AnalyzedImage?, newValue: AnalyzedImage? ->
+            if (newValue != null) {
+                setMetadata(newValue)
+                setPredictedTags()
+            }
         })
-        tagsDisplayMode.addListener(ChangeListener { _observable: ObservableValue<out String>, _oldValue: String?, newValue: String ->
-            setPredictedTags()
+        tagsDisplayMode.addListener(ChangeListener { _observable: ObservableValue<out String>, _oldValue: String?, newValue: String? ->
+            if (newValue != null) {
+                setPredictedTags()
+            }
         })
     }
 
@@ -54,22 +58,25 @@ class SessionCatalog {
     }
 
     private fun setPredictedTags() {
-        val tags = selectedAnalyzedImage.get().tags()
+        if (selectedAnalyzedImage.get() == null) {
+            return
+        }
+        val tags = selectedAnalyzedImage.get()!!.tags()
         val tagsMode = ImageTagsDisplayMode.fromString(tagsDisplayMode.get())
         imagePredictedTags.set(
             when (tagsMode) {
                 ImageTagsDisplayMode.Comma -> {
-                    tags.joinToString { it }
+                    tags?.joinToString { it }
                 }
 
                 ImageTagsDisplayMode.HashTags -> {
-                    tags.joinToString(separator = " ") {
+                    tags?.joinToString(separator = " ") {
                         "#${it}"
                     }
                 }
 
                 ImageTagsDisplayMode.Space -> {
-                    tags.joinToString(separator = " ") { it }
+                    tags?.joinToString(separator = " ") { it }
                 }
             }
         )
