@@ -7,10 +7,13 @@ import dev.nuculabs.imagetagger.ui.controls.ImageTagsDisplayMode
 import dev.nuculabs.imagetagger.ui.controls.ImageTagsEntryControl
 import dev.nuculabs.imagetagger.ui.controls.ImageThumbnail
 import javafx.application.Platform
+import javafx.beans.binding.Binding
+import javafx.beans.binding.Bindings
 import javafx.collections.FXCollections
 import javafx.fxml.FXML
 import javafx.scene.control.Button
 import javafx.scene.control.ChoiceBox
+import javafx.scene.control.Label
 import javafx.scene.control.ProgressBar
 import javafx.scene.control.TableView
 import javafx.scene.control.TextArea
@@ -115,6 +118,9 @@ class MainPageController {
     @FXML
     private lateinit var mainImageView: ImageView
 
+    @FXML
+    private lateinit var mainImageFileNameLabel: Label
+
     /**
      * The metadata table view.
      */
@@ -135,7 +141,9 @@ class MainPageController {
         HBox.setHgrow(cancelButton, Priority.ALWAYS)
 
         mainImageView.imageProperty().bind(catalog.selectedImage)
-
+        mainImageFileNameLabel.textProperty().bind(Bindings.createStringBinding({
+            catalog.selectedAnalyzedImage.get()?.fileName() ?: ""
+        }, catalog.selectedImage))
         initializeTagsDisplayMode()
 
         metadataTableView.columnResizePolicy = TableView.CONSTRAINED_RESIZE_POLICY_FLEX_LAST_COLUMN

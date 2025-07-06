@@ -4,6 +4,7 @@ import dev.nuculabs.imagetagger.catalog.SessionCatalog
 import dev.nuculabs.imagetagger.core.AnalyzedImage
 import javafx.fxml.FXML
 import javafx.fxml.FXMLLoader
+import javafx.scene.control.Label
 import javafx.scene.image.Image
 import javafx.scene.image.ImageView
 import javafx.scene.input.MouseEvent
@@ -20,6 +21,9 @@ class ImageThumbnail(val analyzedImage: AnalyzedImage, private val catalog: Sess
      */
     @FXML
     private lateinit var imageView: ImageView
+
+    @FXML
+    private lateinit var fileNameLabel: Label
 
     init {
         val resource = ImageTagsEntryControl::class.java.getResource("image-thumbnail.fxml")
@@ -44,6 +48,7 @@ class ImageThumbnail(val analyzedImage: AnalyzedImage, private val catalog: Sess
         file.inputStream().use {
             imageView.image = Image(it, 244.0, 244.0, true, true)
             imageView.isCache = true
+            fileNameLabel.text = analyzedImage.fileName()
         }
         if (catalog.selectedImage.get() == null) {
             updateCurrentlySelectedImage()

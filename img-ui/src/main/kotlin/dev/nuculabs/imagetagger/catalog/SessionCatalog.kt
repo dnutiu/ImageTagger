@@ -66,17 +66,17 @@ class SessionCatalog {
         imagePredictedTags.set(
             when (tagsMode) {
                 ImageTagsDisplayMode.Comma -> {
-                    tags?.joinToString { it }
+                    tags.joinToString { it }
                 }
 
                 ImageTagsDisplayMode.HashTags -> {
-                    tags?.joinToString(separator = " ") {
+                    tags.joinToString(separator = " ") {
                         "#${it}"
                     }
                 }
 
                 ImageTagsDisplayMode.Space -> {
-                    tags?.joinToString(separator = " ") { it }
+                    tags.joinToString(separator = " ") { it }
                 }
             }
         )
