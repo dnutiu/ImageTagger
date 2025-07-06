@@ -8,6 +8,8 @@
 <?import dev.nuculabs.imagetagger.ui.controls.ApplicationMenuBar?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.text.TextFlow?>
+<?import javafx.scene.text.Text?>
 <BorderPane xmlns:fx="http://javafx.com/fxml/1"
             xmlns="http://javafx.com/javafx/17.0.2-ea"
             fx:controller="dev.nuculabs.imagetagger.ui.MainPageController"
@@ -40,6 +42,24 @@
                     </VBox>
                 </ScrollPane>
                 <VBox HBox.hgrow="ALWAYS">
+                    <VBox>
+                        <padding>
+                            <Insets left="10" />
+                        </padding>
+                        <TextFlow>
+                            <Text text="Actions" styleClass="actions-label"/>
+                        </TextFlow>
+                        <HBox>
+                            <padding>
+                                <Insets top="10" bottom="10"/>
+                            </padding>
+                            <Button fx:id="copyTagsButton" text="Copy Tags">
+                                <graphic>
+                                    <FontIcon iconLiteral="far-clipboard" iconSize="16"/>
+                                </graphic>
+                            </Button>
+                        </HBox>
+                    </VBox>
                     <TableView fx:id="metadataTableView">
                         <columns>
                             <TableColumn text="Metadata">

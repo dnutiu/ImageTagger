@@ -4,10 +4,8 @@ import dev.nuculabs.imagetagger.catalog.SessionCatalog
 import dev.nuculabs.imagetagger.core.AnalyzedImage
 import dev.nuculabs.imagetagger.ui.controls.ImageMetadataPair
 import dev.nuculabs.imagetagger.ui.controls.ImageTagsDisplayMode
-import dev.nuculabs.imagetagger.ui.controls.ImageTagsEntryControl
 import dev.nuculabs.imagetagger.ui.controls.ImageThumbnail
 import javafx.application.Platform
-import javafx.beans.binding.Binding
 import javafx.beans.binding.Bindings
 import javafx.collections.FXCollections
 import javafx.fxml.FXML
@@ -18,6 +16,8 @@ import javafx.scene.control.ProgressBar
 import javafx.scene.control.TableView
 import javafx.scene.control.TextArea
 import javafx.scene.image.ImageView
+import javafx.scene.input.Clipboard
+import javafx.scene.input.ClipboardContent
 import javafx.scene.layout.HBox
 import javafx.scene.layout.Priority
 import javafx.stage.FileChooser
@@ -66,11 +66,6 @@ class MainPageController {
      * When a new operation is started, the boolean is reset to false.
      */
     private var isCurrentTagsOperationCancelled: Boolean = false
-
-    /**
-     * Holds a list of predicted images controls that are rendered in the view.
-     */
-    private var predictedImages: MutableList<ImageTagsEntryControl> = ArrayList()
 
     /**
      * Controls how image tags are displayed on the screen.
@@ -122,6 +117,12 @@ class MainPageController {
     private lateinit var mainImageFileNameLabel: Label
 
     /**
+     * The copy tags button.
+     */
+    @FXML
+    private lateinit var copyTagsButton: Button
+
+    /**
      * The metadata table view.
      */
     @FXML
@@ -151,6 +152,7 @@ class MainPageController {
 
         predictedImageTags.textProperty().bind(catalog.imagePredictedTags)
 
+
     }
 
     /**
@@ -164,13 +166,12 @@ class MainPageController {
         tagsDisplayModeSelection.selectionModel.selectedItemProperty().addListener { _, oldValue, newValue ->
             if (oldValue != newValue && newValue != null) {
                 tagsDisplayMode = ImageTagsDisplayMode.fromString(newValue)
-                predictedImages.forEach {
-                    it.setTagsDisplayMode(tagsDisplayMode)
-                }
             }
         }
         tagsDisplayModeSelection.valueProperty().bindBidirectional(catalog.tagsDisplayMode)
         catalog.tagsDisplayMode.set(ImageTagsDisplayMode.default().toString())
+
+        setupCopyTagsButton()
     }
 
     /**
@@ -257,6 +258,22 @@ class MainPageController {
                 tagImagesButton.isDisable = false
                 logger.info("Finished processing images.")
             }
+        }
+    }
+
+    /**
+     * Setup copy tags button action.
+     */
+    fun setupCopyTagsButton() {
+        copyTagsButton.disableProperty().bind(Bindings.createBooleanBinding({
+            catalog.selectedAnalyzedImage.get() == null
+        }, catalog.selectedAnalyzedImage))
+
+        copyTagsButton.setOnMouseClicked {
+            val clipboard: Clipboard = Clipboard.getSystemClipboard()
+            val content = ClipboardContent()
+            content.putString(predictedImageTags.text)
+            clipboard.setContent(content)
         }
     }
 
