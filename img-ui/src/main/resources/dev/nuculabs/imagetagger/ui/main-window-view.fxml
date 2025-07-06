@@ -41,6 +41,7 @@
                         <ImageView fx:id="mainImageView"/>
                     </VBox>
                 </ScrollPane>
+                <ScrollPane fitToHeight="true" fitToWidth="true">
                 <VBox HBox.hgrow="ALWAYS">
                     <VBox>
                         <padding>
@@ -91,6 +92,7 @@
                         <TextArea fx:id="predictedImageTags" editable="false" wrapText="true" prefColumnCount="20"/>
                     </VBox>
                 </VBox>
+                </ScrollPane>
             </SplitPane>
             <ScrollPane fitToWidth="true" fitToHeight="true">
                 <HBox fx:id="bottomHBox">
