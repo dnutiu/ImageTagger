@@ -77,4 +77,11 @@ class AnalyzedImage(private val file: File, imageTagsPrediction: IImageTagsPredi
     fun tags(): List<String> {
         return predictedTags
     }
+
+    /**
+     * Returns the file name of the image.
+     */
+    fun fileName(): String {
+        return file.name
+    }
 }

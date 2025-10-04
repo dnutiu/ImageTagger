@@ -6,6 +6,10 @@
 
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 <?import dev.nuculabs.imagetagger.ui.controls.ApplicationMenuBar?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.text.TextFlow?>
+<?import javafx.scene.text.Text?>
 <BorderPane xmlns:fx="http://javafx.com/fxml/1"
             xmlns="http://javafx.com/javafx/17.0.2-ea"
             fx:controller="dev.nuculabs.imagetagger.ui.MainPageController"
@@ -25,22 +29,79 @@
                 </Button>
                 <Separator orientation="VERTICAL" style="-fx-padding: 10px"/>
                 <Region HBox.hgrow="ALWAYS"/>
-                <ChoiceBox fx:id="tagsDisplayModeSelection">
-                    <tooltip>
-                        <Tooltip text="Select how tags are displayed"/>
-                    </tooltip>
-                </ChoiceBox>
             </HBox>
         </VBox>
     </top>
     <center>
-        <ScrollPane fitToWidth="true" fitToHeight="true">
-            <VBox fx:id="verticalBox" HBox.hgrow="ALWAYS">
-                <padding>
-                    <Insets left="10" right="10"/>
-                </padding>
-            </VBox>
-        </ScrollPane>
+        <SplitPane orientation="VERTICAL" dividerPositions="0.9">
+            <SplitPane dividerPositions="0.8">
+                <ScrollPane fitToWidth="true" fitToHeight="true">
+                    <VBox alignment="CENTER">
+                        <Label fx:id="mainImageFileNameLabel"/>
+                        <ImageView fx:id="mainImageView"/>
+                    </VBox>
+                </ScrollPane>
+                <ScrollPane fitToHeight="true" fitToWidth="true">
+                <VBox HBox.hgrow="ALWAYS">
+                    <VBox>
+                        <padding>
+                            <Insets left="10" />
+                        </padding>
+                        <TextFlow>
+                            <Text text="Actions" styleClass="actions-label"/>
+                        </TextFlow>
+                        <HBox>
+                            <padding>
+                                <Insets top="10" bottom="10"/>
+                            </padding>
+                            <Button fx:id="copyTagsButton" text="Copy Tags">
+                                <graphic>
+                                    <FontIcon iconLiteral="far-clipboard" iconSize="16"/>
+                                </graphic>
+                            </Button>
+                        </HBox>
+                    </VBox>
+                    <TableView fx:id="metadataTableView">
+                        <columns>
+                            <TableColumn text="Metadata">
+                                <cellValueFactory>
+                                    <PropertyValueFactory property="metadata"/>
+                                </cellValueFactory>
+                            </TableColumn>
+                            <TableColumn text="Value">
+                                <cellValueFactory>
+                                    <PropertyValueFactory property="value"/>
+                                </cellValueFactory>
+                            </TableColumn>
+                        </columns>
+                    </TableView>
+                    <VBox>
+                        <HBox>
+                            <padding>
+                                <Insets top="5" bottom="5" right="20"/>
+                            </padding>
+                            <Label text="Tags display mode:"/>
+                            <Region HBox.hgrow="ALWAYS"/>
+                            <ChoiceBox fx:id="tagsDisplayModeSelection">
+                                <tooltip>
+                                    <Tooltip text="Select how tags are displayed"/>
+                                </tooltip>
+                            </ChoiceBox>
+                        </HBox>
+                        <Label text="Tags:"/>
+                        <TextArea fx:id="predictedImageTags" editable="false" wrapText="true" prefColumnCount="20"/>
+                    </VBox>
+                </VBox>
+                </ScrollPane>
+            </SplitPane>
+            <ScrollPane fitToWidth="true" fitToHeight="true">
+                <HBox fx:id="bottomHBox">
+                    <padding>
+                        <Insets left="5" right="5"/>
+                    </padding>
+                </HBox>
+            </ScrollPane>
+        </SplitPane>
     </center>
 
     <bottom>

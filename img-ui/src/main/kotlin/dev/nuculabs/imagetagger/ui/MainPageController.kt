@@ -1,19 +1,25 @@
 package dev.nuculabs.imagetagger.ui
 
+import dev.nuculabs.imagetagger.catalog.SessionCatalog
 import dev.nuculabs.imagetagger.core.AnalyzedImage
+import dev.nuculabs.imagetagger.ui.controls.ImageMetadataPair
 import dev.nuculabs.imagetagger.ui.controls.ImageTagsDisplayMode
-import dev.nuculabs.imagetagger.ui.controls.ImageTagsEntryControl
-import dev.nuculabs.imagetagger.ui.controls.ImageTagsSessionHeader
+import dev.nuculabs.imagetagger.ui.controls.ImageThumbnail
 import javafx.application.Platform
+import javafx.beans.binding.Bindings
 import javafx.collections.FXCollections
 import javafx.fxml.FXML
 import javafx.scene.control.Button
 import javafx.scene.control.ChoiceBox
+import javafx.scene.control.Label
 import javafx.scene.control.ProgressBar
-import javafx.scene.control.Separator
+import javafx.scene.control.TableView
+import javafx.scene.control.TextArea
+import javafx.scene.image.ImageView
+import javafx.scene.input.Clipboard
+import javafx.scene.input.ClipboardContent
 import javafx.scene.layout.HBox
 import javafx.scene.layout.Priority
-import javafx.scene.layout.VBox
 import javafx.stage.FileChooser
 import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
@@ -62,29 +68,71 @@ class MainPageController {
     private var isCurrentTagsOperationCancelled: Boolean = false
 
     /**
-     * Holds a list of predicted images controls that are rendered in the view.
-     */
-    private var predictedImages: MutableList<ImageTagsEntryControl> = ArrayList()
-
-    /**
      * Controls how image tags are displayed on the screen.
      */
     private var tagsDisplayMode: ImageTagsDisplayMode = ImageTagsDisplayMode.Comma
 
+    /**
+     * The session catalog.
+     */
+    private val catalog: SessionCatalog = SessionCatalog()
+
+    /**
+     * Progress bar that shows the image import progress.
+     */
     @FXML
     private lateinit var progressBar: ProgressBar
 
+    /**
+     * Bottom box, hosts progress bar and actions
+     */
     @FXML
-    private lateinit var verticalBox: VBox
+    private lateinit var bottomHBox: HBox
 
+    /**
+     * Cancel import images button.
+     */
     @FXML
     private lateinit var cancelButton: Button
 
+    /**
+     * Tag images button.
+     */
     @FXML
     private lateinit var tagImagesButton: Button
 
+    /**
+     * The tags display mode choice box.
+     */
     @FXML
     private lateinit var tagsDisplayModeSelection: ChoiceBox<String>
+
+    /**
+     * The main image view.
+     */
+    @FXML
+    private lateinit var mainImageView: ImageView
+
+    @FXML
+    private lateinit var mainImageFileNameLabel: Label
+
+    /**
+     * The copy tags button.
+     */
+    @FXML
+    private lateinit var copyTagsButton: Button
+
+    /**
+     * The metadata table view.
+     */
+    @FXML
+    private lateinit var metadataTableView: TableView<ImageMetadataPair>
+
+    /**
+     * The text area for the image prediction entry.
+     */
+    @FXML
+    private lateinit var predictedImageTags: TextArea
 
     /**
      * Initializes the controller. Needs to be called after the dependencies have been injected.
@@ -93,7 +141,18 @@ class MainPageController {
         HBox.setHgrow(progressBar, Priority.ALWAYS)
         HBox.setHgrow(cancelButton, Priority.ALWAYS)
 
+        mainImageView.imageProperty().bind(catalog.selectedImage)
+        mainImageFileNameLabel.textProperty().bind(Bindings.createStringBinding({
+            catalog.selectedAnalyzedImage.get()?.fileName() ?: ""
+        }, catalog.selectedImage))
         initializeTagsDisplayMode()
+
+        metadataTableView.columnResizePolicy = TableView.CONSTRAINED_RESIZE_POLICY_FLEX_LAST_COLUMN
+        metadataTableView.itemsProperty().bind(catalog.imageMetadataEntries)
+
+        predictedImageTags.textProperty().bind(catalog.imagePredictedTags)
+
+
     }
 
     /**
@@ -104,16 +163,15 @@ class MainPageController {
         tagsDisplayModeSelection.items = FXCollections.observableArrayList(
             ImageTagsDisplayMode.entries.map { it.toString() }
         )
-        tagsDisplayModeSelection.value = ImageTagsDisplayMode.default().toString()
-
         tagsDisplayModeSelection.selectionModel.selectedItemProperty().addListener { _, oldValue, newValue ->
             if (oldValue != newValue && newValue != null) {
                 tagsDisplayMode = ImageTagsDisplayMode.fromString(newValue)
-                predictedImages.forEach {
-                    it.setTagsDisplayMode(tagsDisplayMode)
-                }
             }
         }
+        tagsDisplayModeSelection.valueProperty().bindBidirectional(catalog.tagsDisplayMode)
+        catalog.tagsDisplayMode.set(ImageTagsDisplayMode.default().toString())
+
+        setupCopyTagsButton()
     }
 
     /**
@@ -137,11 +195,6 @@ class MainPageController {
             // Create a new thread to predict the image tags.
             Thread {
                 logger.info("Analyzing $imageFilesTotal files")
-                if (filePaths.isNotEmpty()) {
-                    Platform.runLater {
-                        addNewImagePredictionHeader(imageFilesTotal, filePaths.first().parent)
-                    }
-                }
                 filePaths.forEach { filePath ->
                     if (isCurrentTagsOperationCancelled) {
                         logger.info("Cancelling current prediction operation.")
@@ -186,21 +239,9 @@ class MainPageController {
     fun addNewImagePredictionEntry(
         analyzedImage: AnalyzedImage,
     ) {
-        val control = ImageTagsEntryControl(analyzedImage)
-        control.setTagsDisplayMode(tagsDisplayMode)
-        verticalBox.children.add(control)
-        predictedImages.add(control)
-        verticalBox.children.add(Separator())
-    }
-
-    /**
-     * Display the image prediction session header on the UI.
-     */
-    fun addNewImagePredictionHeader(totalImages: Int, directoryPath: String) {
-        val imageSessionHeader = ImageTagsSessionHeader()
-        imageSessionHeader.updateHeader(totalImages, directoryPath)
-        verticalBox.children.add(imageSessionHeader)
-        verticalBox.children.add(Separator())
+        // todo: don't add if error. log it
+        val control = ImageThumbnail(analyzedImage, catalog)
+        bottomHBox.children.add(control)
     }
 
     /**
@@ -217,6 +258,22 @@ class MainPageController {
                 tagImagesButton.isDisable = false
                 logger.info("Finished processing images.")
             }
+        }
+    }
+
+    /**
+     * Setup copy tags button action.
+     */
+    fun setupCopyTagsButton() {
+        copyTagsButton.disableProperty().bind(Bindings.createBooleanBinding({
+            catalog.selectedAnalyzedImage.get() == null
+        }, catalog.selectedAnalyzedImage))
+
+        copyTagsButton.setOnMouseClicked {
+            val clipboard: Clipboard = Clipboard.getSystemClipboard()
+            val content = ClipboardContent()
+            content.putString(predictedImageTags.text)
+            clipboard.setContent(content)
         }
     }
 

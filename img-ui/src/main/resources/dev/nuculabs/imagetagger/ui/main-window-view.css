@@ -1,3 +1,7 @@
 tooltip {
     -fx-show-delay: 250ms;
 }
+.actions-label {
+    -fx-font-weight: bold !important;
+    -fx-underline: true;
+}
